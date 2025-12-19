@@ -176,7 +176,15 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   // Mobile full-screen view
   if (isMobile) {
     return (
-      <div className="fixed inset-0 z-[9999] bg-background flex flex-col" style={{ width: '100vw', height: '100vh' }}>
+      <div
+        className="fixed inset-0 z-[9999] bg-background flex flex-col"
+        style={{
+          width: '100vw',
+          height: '100vh',
+          maxWidth: '100vw',
+          overflow: 'hidden'
+        }}
+      >
         {/* Mobile header */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 flex justify-between items-center shadow-lg flex-shrink-0">
           <span className="font-semibold text-white text-sm">Resume</span>
@@ -217,14 +225,23 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         </div>
 
         {/* PDF viewer - takes remaining space */}
-        <div className="flex-1 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+        <div
+          className="bg-gray-100 dark:bg-gray-800"
+          style={{
+            flex: 1,
+            width: '100%',
+            maxWidth: '100vw',
+            overflow: 'auto',
+            position: 'relative'
+          }}
+        >
           <iframe
             src={`${resumePath}#view=FitH`}
             title="Resume PDF"
-            className="border-0"
             style={{
               width: '100%',
               height: '100%',
+              border: 'none',
               display: 'block'
             }}
           />
