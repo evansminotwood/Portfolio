@@ -3,7 +3,7 @@ name: publish-to-github-pages
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: read
@@ -31,7 +31,19 @@ jobs:
           static_site_generator: next
 
       - name: Build with Next.js 🏗️
-        run: npx next build
+        run: npm run build
+
+      - name: List build output 📋
+        run: |
+          echo "Checking if out directory exists..."
+          ls -la
+          if [ -d "out" ]; then
+            echo "✅ out directory exists"
+            ls -la out
+          else
+            echo "❌ out directory does not exist"
+            exit 1
+          fi
 
       - name: Upload artifact 📡
         uses: actions/upload-pages-artifact@v3
