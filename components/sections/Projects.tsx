@@ -9,6 +9,12 @@ import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSpotify, SiNextdotjs, S
 // Import the ProjectDetail component
 import ProjectDetail from "./ProjectDetail";
 
+const TechPlaceholder = () => (
+    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
+        <span className="text-xs font-bold text-gray-500 dark:text-gray-400">360°</span>
+    </div>
+);
+
 export default function Projects({
     selectedProject,
     setSelectedProject,
@@ -450,9 +456,14 @@ export default function Projects({
                                     {/* Tech Stack Icons */}
                                     <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-b">
                                         <div className="flex gap-3 items-center">
-                                            {project.techIcons.map((TechIcon, techIdx) => (
-                                                <TechIcon key={techIdx} className="text-2xl text-muted-foreground" />
-                                            ))}
+                                            {project.techIcons.length > 0 ? (
+                                                project.techIcons.map((TechIcon, techIdx) => (
+                                                    <TechIcon key={techIdx} className="text-2xl text-muted-foreground" />
+                                                ))
+                                            ) : (
+                                                // Show placeholder for projects without tech icons
+                                                <span className="text-sm text-muted-foreground">No-Code Platform • 360° Media • Interactive Design</span>
+                                            )}
                                         </div>
                                     </div>
 
