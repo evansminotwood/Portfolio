@@ -377,7 +377,7 @@ export default function Projects({
                                                 opacity: opacity
                                             }}
                                         >
-                                            <div className="p-3 bg-white dark:bg-white-800 rounded-lg shadow-md mb-2">
+                                            <div className="p-3 bg-black rounded-lg shadow-md mb-2">
                                                 <Icon className={`text-5xl ${tech.color}`} />
                                             </div>
                                             <span className="text-xs font-medium text-muted-foreground text-center whitespace-nowrap">
