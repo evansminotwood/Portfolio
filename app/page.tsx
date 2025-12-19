@@ -9,7 +9,6 @@ import Education from "@/components/sections/Education";
 import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 
-// page.tsx
 export default function Page() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [viewingProjectDetail, setViewingProjectDetail] = useState(false);
@@ -17,10 +16,10 @@ export default function Page() {
 
   const handleNavClick = () => {
     setViewingProjectDetail(false);
-    setSelectedProject(null); // reset detail view
+    setSelectedProject(null);
     const el = document.getElementById("projects");
     if (el) {
-      const yOffset = -96; // navbar offset
+      const yOffset = -96;
       const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
     }

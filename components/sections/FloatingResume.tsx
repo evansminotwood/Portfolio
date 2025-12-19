@@ -8,10 +8,6 @@ interface FloatingResumeProps {
   setIsOpen: (open: boolean) => void;
 }
 
-const resumePath = process.env.NODE_ENV === 'production'
-  ? '/Portfolio/Evans-Minot-Wood-Resume.pdf'
-  : '/Evans-Minot-Wood-Resume.pdf';
-
 export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProps) {
   const windowRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -27,6 +23,10 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const MIN_WIDTH = 400;
   const MIN_HEIGHT = 500;
   const SNAP_THRESHOLD = 15;
+
+  const resumePath = process.env.NODE_ENV === 'production'
+    ? '/Portfolio/Evans-Minot-Wood-Resume.pdf'
+    : '/Evans-Minot-Wood-Resume.pdf';
 
   // Initialize position on mount
   useEffect(() => {

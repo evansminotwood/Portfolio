@@ -79,7 +79,7 @@ export default function Experience() {
           {experiences.map((exp, idx) => {
             const colors = getColorClasses(exp.color);
             const Icon = exp.icon;
-            
+
             return (
               <Card key={idx} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="p-0">

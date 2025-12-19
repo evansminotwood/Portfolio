@@ -1,4 +1,4 @@
-// components/layout/Navbar.tsx
+import { useState } from "react";
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -11,31 +11,47 @@ import {
     HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-const imgSrc = process.env.NODE_ENV === 'production'
-    ? '/Portfolio/images/Evans-Minot-Wood.jpg'
-    : '/images/Evans-Minot-Wood.jpg';
+import { Button } from "@/components/ui/button";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function Navbar({
     onToggleResume,
-    onNavClick, // new callback
+    onNavClick,
 }: {
     onToggleResume: () => void;
     onNavClick?: () => void;
 }) {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const imgSrc = process.env.NODE_ENV === 'production'
+        ? '/Portfolio/images/evans-minot-wood.jpg'
+        : '/images/evans-minot-wood.jpg';
+
     const handleNavClick = (id: string) => {
-        onNavClick?.(); // reset viewingProjectDetail if provided
+        onNavClick?.();
+        setIsMobileMenuOpen(false);
+
+        if (id === "top") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            return;
+        }
+
         const el = document.getElementById(id);
         if (el) {
-            const yOffset = -96; // offset for fixed navbar height
+            const yOffset = -96;
             const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
             window.scrollTo({ top: y, behavior: "smooth" });
         }
     };
 
+    const handleResumeClick = () => {
+        setIsMobileMenuOpen(false);
+        onToggleResume();
+    };
+
     return (
         <header className="fixed top-0 z-50 w-full border-b bg-background">
-            <div className="container mx-auto flex items-center justify-between py-4">
+            <div className="container mx-auto flex items-center justify-between py-4 px-4">
                 {/* Left: Name / Home with HoverCard */}
                 <NavigationMenu>
                     <NavigationMenuList>
@@ -80,8 +96,8 @@ export default function Navbar({
                     </NavigationMenuList>
                 </NavigationMenu>
 
-                {/* Right: Section links */}
-                <NavigationMenu>
+                {/* Desktop Navigation - Hidden on mobile */}
+                <NavigationMenu className="hidden md:flex">
                     <NavigationMenuList className="flex gap-4">
                         {[
                             { id: "about", label: "About" },
@@ -102,12 +118,11 @@ export default function Navbar({
                             </NavigationMenuItem>
                         ))}
 
-                        {/* Resume link now toggles the floating resume panel */}
                         <NavigationMenuItem>
                             <NavigationMenuLink
                                 href="#"
                                 onClick={(e) => {
-                                    e.preventDefault(); // prevent scrolling
+                                    e.preventDefault();
                                     onToggleResume();
                                 }}
                             >
@@ -116,7 +131,48 @@ export default function Navbar({
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>
+
+                {/* Mobile Hamburger Button */}
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="md:hidden"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {isMobileMenuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
+                </Button>
             </div>
+
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden border-t bg-background">
+                    <nav className="container mx-auto py-4 flex flex-col gap-2">
+                        {[
+                            { id: "about", label: "About" },
+                            { id: "education", label: "Education" },
+                            { id: "experience", label: "Experience" },
+                            { id: "projects", label: "Projects" },
+                        ].map((link) => (
+                            <Button
+                                key={link.id}
+                                variant="ghost"
+                                className="justify-start text-base"
+                                onClick={() => handleNavClick(link.id)}
+                            >
+                                {link.label}
+                            </Button>
+                        ))}
+                        <Button
+                            variant="ghost"
+                            className="justify-start text-base"
+                            onClick={handleResumeClick}
+                        >
+                            Resume
+                        </Button>
+                    </nav>
+                </div>
+            )}
         </header>
     );
 }
