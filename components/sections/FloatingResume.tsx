@@ -9,8 +9,8 @@ interface FloatingResumeProps {
 }
 
 const resumePath = process.env.NODE_ENV === 'production'
-  ? './Portfolio/Evans-Minot-Wood-Resume.pdf'
-  : './Evans-Minot-Wood-Resume.pdf';
+  ? '/Portfolio/Evans-Minot-Wood-Resume.pdf'
+  : '/Evans-Minot-Wood-Resume.pdf';
 
 export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProps) {
   const windowRef = useRef<HTMLDivElement>(null);
