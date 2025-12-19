@@ -183,83 +183,56 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
           left: 0,
           width: '100vw',
           height: '100vh',
-          overflow: 'hidden',
           display: 'flex',
-          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
           zIndex: 9999,
-          backgroundColor: 'var(--background)'
+          padding: '20px'
         }}
+        onClick={() => setIsOpen(false)}
       >
-        {/* Mobile header */}
         <div
-          className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 flex justify-between items-center shadow-lg"
-          style={{ flexShrink: 0, width: '100%' }}
+          className="bg-white dark:bg-gray-900 rounded-lg p-8 max-w-sm w-full"
+          onClick={(e) => e.stopPropagation()}
         >
-          <span className="font-semibold text-white text-sm">Resume</span>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-8 w-8 p-0 text-white hover:bg-white/20 rounded"
-            onClick={() => setIsOpen(false)}
-          >
-            ✕
-          </Button>
-        </div>
+          <h2 className="text-2xl font-bold mb-4 text-center">View Resume</h2>
+          <p className="text-muted-foreground text-center mb-6">
+            Choose how you'd like to view the resume
+          </p>
 
-        {/* Action buttons */}
-        <div
-          className="bg-white dark:bg-gray-900 border-b px-4 py-2 flex gap-2"
-          style={{ flexShrink: 0, width: '100%' }}
-        >
-          <Button
-            size="sm"
-            variant="outline"
-            className="flex-1 text-xs"
-            asChild
-          >
-            <a href={resumePath} download="Evans-Minot-Wood-Resume.pdf">
-              <FaDownload className="mr-1" />
-              Download
-            </a>
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="flex-1 text-xs"
-            asChild
-          >
-            <a href={resumePath} target="_blank" rel="noopener noreferrer">
-              <FaExternalLinkAlt className="mr-1" />
-              Open
-            </a>
-          </Button>
-        </div>
+          <div className="flex flex-col gap-3">
+            <Button
+              size="lg"
+              className="w-full"
+              asChild
+            >
+              <a href={resumePath} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
+                <FaExternalLinkAlt className="mr-2" />
+                Open in New Tab
+              </a>
+            </Button>
 
-        {/* PDF viewer */}
-        <div
-          style={{
-            flex: 1,
-            width: '100%',
-            overflow: 'auto',
-            backgroundColor: '#f3f4f6',
-            WebkitOverflowScrolling: 'touch'
-          }}
-        >
-          <div style={{
-            width: '100%',
-            height: '100%',
-            overflow: 'hidden'
-          }}>
-            <iframe
-              src={`${resumePath}#view=FitH&zoom=page-width`}
-              title="Resume PDF"
-              style={{
-                width: '100%',
-                height: '100%',
-                border: 'none',
-                display: 'block'
-              }}
-            />
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full"
+              asChild
+            >
+              <a href={resumePath} download="Evans-Minot-Wood-Resume.pdf" onClick={() => setIsOpen(false)}>
+                <FaDownload className="mr-2" />
+                Download PDF
+              </a>
+            </Button>
+
+            <Button
+              size="lg"
+              variant="ghost"
+              className="w-full"
+              onClick={() => setIsOpen(false)}
+            >
+              Cancel
+            </Button>
           </div>
         </div>
       </div>
