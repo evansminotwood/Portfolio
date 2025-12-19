@@ -82,9 +82,7 @@ export default function About() {
                             {/* Bio */}
                             <div className="border-l-4 border-blue-600 pl-6 py-2">
                                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                                    I'm a passionate technologist at the intersection of computer science and data analytics.
-                                    I thrive on solving complex problems and building innovative solutions that make a difference.
-                                    When I'm not coding, you'll find me performing with local bands or exploring new technologies.
+                                    I’m a passionate technologist working at the intersection of computer science and data analytics. I enjoy tackling complex problems and building thoughtful, impactful solutions. Outside of coding, I channel my creativity through music production, creating and mixing music for events, while continually exploring emerging technologies.
                                 </p>
                             </div>
                         </div>
