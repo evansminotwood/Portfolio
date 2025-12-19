@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { FaGraduationCap, FaMapMarkerAlt, FaCode, FaChartLine } from "react-icons/fa";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function About() {
   return (
     <section id="about" className="scroll-mt-24 py-12 bg-background flex justify-center px-4">
@@ -15,7 +17,7 @@ export default function About() {
             <div className="md:w-2/5 flex items-center justify-center p-12">
               <div className="relative">
                 <Image
-                  src="/images/Evans Minot Wood.jpg"
+                  src={`${basePath}/images/Evans Minot Wood.jpg`}
                   alt="Evans Minot Wood"
                   width={280}
                   height={280}

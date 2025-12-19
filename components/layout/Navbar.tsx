@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function Navbar({
   onToggleResume,
   onNavClick, // new callback
@@ -54,7 +56,7 @@ export default function Navbar({
                   <div className="flex gap-3">
                     <Avatar className="h-12 w-12">
                       <AvatarImage
-                        src="/images/Evans Minot Wood.jpg"
+                        src={`${basePath}/images/Evans Minot Wood.jpg`}
                         alt="Evans Minot Wood"
                       />
                       <AvatarFallback>EMW</AvatarFallback>
