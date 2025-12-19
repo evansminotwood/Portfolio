@@ -8,15 +8,19 @@ interface FloatingResumeProps {
   setIsOpen: (open: boolean) => void;
 }
 
+const resumePath = process.env.NODE_ENV === 'production'
+  ? '/Portfolio/Evans Minot Wood - Resume.pdf'
+  : '/Evans Minot Wood - Resume.pdf';
+
 export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProps) {
   const windowRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
-  
+
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState({ width: 700, height: 850 });
   const [isInitialized, setIsInitialized] = useState(false);
-  
+
   const dragStart = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
   const resizeStart = useRef({ x: 0, y: 0, startWidth: 0, startHeight: 0 });
 
@@ -38,7 +42,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const snapPosition = (x: number, y: number) => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    
+
     let snapX = x;
     let snapY = y;
 
@@ -53,7 +57,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   // Drag handlers
   const handleDragStart = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest('button')) return;
-    
+
     setIsDragging(true);
     dragStart.current = {
       x: e.clientX,
@@ -151,8 +155,8 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
     <>
       {/* Overlay to catch all mouse events during drag/resize */}
       {(isDragging || isResizing) && (
-        <div 
-          className="fixed inset-0 z-[9998]" 
+        <div
+          className="fixed inset-0 z-[9998]"
           style={{ cursor: isDragging ? 'grabbing' : 'nwse-resize' }}
         />
       )}
@@ -180,9 +184,9 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
             <div className="w-2 h-2 bg-white rounded-full opacity-80" />
             <span className="font-semibold text-white text-sm">Resume - Evans Minot Wood</span>
           </div>
-          <Button 
-            size="sm" 
-            variant="ghost" 
+          <Button
+            size="sm"
+            variant="ghost"
             className="h-6 w-6 p-0 text-white hover:bg-white/20 rounded"
             onClick={() => setIsOpen(false)}
           >
@@ -191,12 +195,12 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         </div>
 
         {/* Content area */}
-        <div 
+        <div
           className="relative w-full bg-gray-50"
           style={{ height: 'calc(100% - 48px)' }}
         >
           <iframe
-            src="/Evans Minot Wood - Resume.pdf"
+            src={resumePath}
             title="Resume PDF"
             className="w-full h-full border-0"
             style={{
