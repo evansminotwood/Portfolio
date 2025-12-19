@@ -24,7 +24,6 @@ Here are some highlights from my portfolio:
 - **Type:** AI-Powered Receipt Management Platform
 - **Technologies:** React, Node.js, AWS Lambda, Aurora RDS, Gemini AI
 - **Description:** Full-stack web application for receipt and shopping management. Uses AI to automatically analyze and categorize receipts.
-- **Links:** [Live Site](https://shopcomp.online)
 
 ### 2. **Python-to-x86 Compiler**
 - **Type:** Full-Featured Language Compiler
