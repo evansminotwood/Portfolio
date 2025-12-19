@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { FaDownload, FaExternalLinkAlt } from "react-icons/fa";
 
 interface FloatingResumeProps {
   isOpen: boolean;
@@ -12,11 +13,16 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const windowRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
-
+  const [isMobile, setIsMobile] = useState(false);
+  
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState({ width: 700, height: 850 });
   const [isInitialized, setIsInitialized] = useState(false);
-
+  
+  const resumePath = process.env.NODE_ENV === 'production' 
+    ? '/Portfolio/Evans-Minot-Wood-Resume.pdf'
+    : '/Evans-Minot-Wood-Resume.pdf';
+  
   const dragStart = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
   const resizeStart = useRef({ x: 0, y: 0, startWidth: 0, startHeight: 0 });
 
@@ -24,25 +30,39 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const MIN_HEIGHT = 500;
   const SNAP_THRESHOLD = 15;
 
-  const resumePath = process.env.NODE_ENV === 'production'
-    ? '/Portfolio/Evans-Minot-Wood-Resume.pdf'
-    : '/Evans-Minot-Wood-Resume.pdf';
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Initialize position on mount
   useEffect(() => {
     if (typeof window !== "undefined" && isOpen && !isInitialized) {
-      const x = Math.max(20, window.innerWidth - size.width - 50);
-      const y = Math.max(20, window.innerHeight - size.height - 50);
-      setPosition({ x, y });
+      if (isMobile) {
+        // On mobile, use full screen
+        setPosition({ x: 0, y: 0 });
+        setSize({ width: window.innerWidth, height: window.innerHeight });
+      } else {
+        // On desktop, position in bottom right
+        const x = Math.max(20, window.innerWidth - size.width - 50);
+        const y = Math.max(20, window.innerHeight - size.height - 50);
+        setPosition({ x, y });
+      }
       setIsInitialized(true);
     }
-  }, [isOpen, isInitialized, size.width, size.height]);
+  }, [isOpen, isInitialized, size.width, size.height, isMobile]);
 
   // Snap to edges helper
   const snapPosition = (x: number, y: number) => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-
+    
     let snapX = x;
     let snapY = y;
 
@@ -56,8 +76,9 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
 
   // Drag handlers
   const handleDragStart = (e: React.MouseEvent) => {
+    if (isMobile) return; // Disable dragging on mobile
     if ((e.target as HTMLElement).closest('button')) return;
-
+    
     setIsDragging(true);
     dragStart.current = {
       x: e.clientX,
@@ -93,6 +114,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
 
   // Resize handlers
   const handleResizeStart = (e: React.MouseEvent) => {
+    if (isMobile) return; // Disable resizing on mobile
     e.stopPropagation();
     setIsResizing(true);
     resizeStart.current = {
@@ -151,12 +173,68 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
 
   if (!isOpen) return null;
 
+  // Mobile full-screen view
+  if (isMobile) {
+    return (
+      <div className="fixed inset-0 z-[9999] bg-background flex flex-col">
+        {/* Mobile header */}
+        <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 flex justify-between items-center shadow-lg">
+          <span className="font-semibold text-white text-sm">Resume - Evans Minot Wood</span>
+          <Button 
+            size="sm" 
+            variant="ghost" 
+            className="h-8 w-8 p-0 text-white hover:bg-white/20 rounded"
+            onClick={() => setIsOpen(false)}
+          >
+            ✕
+          </Button>
+        </div>
+
+        {/* Action buttons */}
+        <div className="bg-white dark:bg-gray-900 border-b px-4 py-3 flex gap-2">
+          <Button 
+            size="sm" 
+            variant="outline"
+            className="flex-1"
+            asChild
+          >
+            <a href={resumePath} download="Evans-Minot-Wood-Resume.pdf">
+              <FaDownload className="mr-2" />
+              Download
+            </a>
+          </Button>
+          <Button 
+            size="sm" 
+            variant="outline"
+            className="flex-1"
+            asChild
+          >
+            <a href={resumePath} target="_blank" rel="noopener noreferrer">
+              <FaExternalLinkAlt className="mr-2" />
+              Open
+            </a>
+          </Button>
+        </div>
+
+        {/* PDF viewer */}
+        <div className="flex-1 overflow-hidden bg-gray-100 dark:bg-gray-800">
+          <iframe
+            src={resumePath}
+            title="Resume PDF"
+            className="w-full h-full border-0"
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop floating window
   return (
     <>
       {/* Overlay to catch all mouse events during drag/resize */}
       {(isDragging || isResizing) && (
-        <div
-          className="fixed inset-0 z-[9998]"
+        <div 
+          className="fixed inset-0 z-[9998]" 
           style={{ cursor: isDragging ? 'grabbing' : 'nwse-resize' }}
         />
       )}
@@ -164,7 +242,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
       {/* Floating window */}
       <div
         ref={windowRef}
-        className="fixed bg-white border border-gray-300 shadow-2xl rounded-lg overflow-hidden z-[9999] select-none"
+        className="fixed bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 shadow-2xl rounded-lg overflow-hidden z-[9999] select-none"
         style={{
           left: position.x,
           top: position.y,
@@ -184,19 +262,31 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
             <div className="w-2 h-2 bg-white rounded-full opacity-80" />
             <span className="font-semibold text-white text-sm">Resume - Evans Minot Wood</span>
           </div>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-6 w-6 p-0 text-white hover:bg-white/20 rounded"
-            onClick={() => setIsOpen(false)}
-          >
-            ✕
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              size="sm" 
+              variant="ghost" 
+              className="h-7 px-2 text-xs text-white hover:bg-white/20 rounded"
+              asChild
+            >
+              <a href={resumePath} download="Evans-Minot-Wood-Resume.pdf">
+                <FaDownload />
+              </a>
+            </Button>
+            <Button 
+              size="sm" 
+              variant="ghost" 
+              className="h-7 w-7 p-0 text-white hover:bg-white/20 rounded"
+              onClick={() => setIsOpen(false)}
+            >
+              ✕
+            </Button>
+          </div>
         </div>
 
         {/* Content area */}
-        <div
-          className="relative w-full bg-gray-50"
+        <div 
+          className="relative w-full bg-gray-50 dark:bg-gray-800"
           style={{ height: 'calc(100% - 48px)' }}
         >
           <iframe
@@ -215,7 +305,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
           className="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize group"
           style={{ touchAction: 'none' }}
         >
-          <div className="absolute bottom-1 right-1 w-3 h-3 border-r-2 border-b-2 border-gray-400 group-hover:border-blue-500 transition-colors" />
+          <div className="absolute bottom-1 right-1 w-3 h-3 border-r-2 border-b-2 border-gray-400 dark:border-gray-500 group-hover:border-blue-500 transition-colors" />
         </div>
 
         {/* Resize handles - edges */}

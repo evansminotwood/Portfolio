@@ -19,32 +19,19 @@ export default function Navbar({
     onNavClick,
 }: {
     onToggleResume: () => void;
-    onNavClick?: () => void;
+    onNavClick?: (sectionId?: string) => void;
 }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const imgSrc = process.env.NODE_ENV === 'production'
-        ? '/Portfolio/images/Evans-Minot-Wood.jpg'
-        : '/images/Evans-Minot-Wood.jpg';
+        ? '/Portfolio/images/evans-minot-wood.jpg'
+        : '/images/evans-minot-wood.jpg';
 
     const handleNavClick = (id: string) => {
-        onNavClick?.();
-
         setIsMobileMenuOpen(false);
 
-        if (id === "top") {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            return;
-        }
-
-        setTimeout(() => {
-            const el = document.getElementById(id);
-            if (el) {
-                const yOffset = -96;
-                const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                window.scrollTo({ top: y, behavior: "smooth" });
-            }
-        }, 100);
+        // Pass the section ID to parent
+        onNavClick?.(id);
     };
 
     const handleResumeClick = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import About from "@/components/sections/About";
 import FloatingResume from "@/components/sections/FloatingResume";
@@ -13,17 +13,32 @@ export default function Page() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [viewingProjectDetail, setViewingProjectDetail] = useState(false);
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [pendingScroll, setPendingScroll] = useState<string | null>(null);
 
-  const handleNavClick = () => {
+  const handleNavClick = (sectionId?: string) => {
     setViewingProjectDetail(false);
     setSelectedProject(null);
-    const el = document.getElementById("projects");
-    if (el) {
-      const yOffset = -96;
-      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "smooth" });
+    
+    // Store which section to scroll to
+    if (sectionId && sectionId !== "top") {
+      setPendingScroll(sectionId);
+    } else if (sectionId === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
+  // Execute scroll after sections are rendered
+  useEffect(() => {
+    if (!viewingProjectDetail && pendingScroll) {
+      const el = document.getElementById(pendingScroll);
+      if (el) {
+        const yOffset = -96;
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+      setPendingScroll(null); // Clear pending scroll
+    }
+  }, [viewingProjectDetail, pendingScroll]);
 
   return (
     <>
