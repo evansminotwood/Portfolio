@@ -29,6 +29,7 @@ export default function Navbar({
 
     const handleNavClick = (id: string) => {
         onNavClick?.();
+
         setIsMobileMenuOpen(false);
 
         if (id === "top") {
@@ -36,12 +37,14 @@ export default function Navbar({
             return;
         }
 
-        const el = document.getElementById(id);
-        if (el) {
-            const yOffset = -96;
-            const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({ top: y, behavior: "smooth" });
-        }
+        setTimeout(() => {
+            const el = document.getElementById(id);
+            if (el) {
+                const yOffset = -96;
+                const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: "smooth" });
+            }
+        }, 50);
     };
 
     const handleResumeClick = () => {
