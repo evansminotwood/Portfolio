@@ -1,10 +1,14 @@
 "use client";
 
-import Image from "next/image";
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { FaGraduationCap, FaMapMarkerAlt, FaCode, FaChartLine } from "react-icons/fa";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+const imgSrc = process.env.NODE_ENV === 'production' 
+  ? '/Portfolio/images/Evans Minot Wood.jpg'
+  : '/images/Evans Minot Wood.jpg';
+
 
 export default function About() {
   return (
@@ -16,8 +20,8 @@ export default function About() {
             {/* Left: Image Section */}
             <div className="md:w-2/5 flex items-center justify-center p-12">
               <div className="relative">
-                <Image
-                  src={`${basePath}/images/Evans Minot Wood.jpg`}
+                <img
+                  src={imgSrc}
                   alt="Evans Minot Wood"
                   width={280}
                   height={280}
