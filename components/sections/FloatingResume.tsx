@@ -174,10 +174,28 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   if (!isOpen) return null;
 
   // Mobile full-screen view
-  // Mobile full-screen view
   if (isMobile) {
+    // Prevent body scroll when resume is open
+    useEffect(() => {
+      if (isOpen) {
+        document.body.style.overflow = 'hidden';
+        return () => {
+          document.body.style.overflow = 'unset';
+        };
+      }
+    }, [isOpen]);
+
     return (
-      <div className="fixed inset-0 z-[9999] bg-background flex flex-col" style={{ width: '100vw', height: '100vh' }}>
+      <div
+        className="fixed top-0 left-0 right-0 bottom-0 z-[9999] bg-background flex flex-col"
+        style={{
+          width: '100vw',
+          height: '100vh',
+          maxWidth: '100vw',
+          maxHeight: '100vh',
+          overflow: 'hidden'
+        }}
+      >
         {/* Mobile header */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 flex justify-between items-center shadow-lg flex-shrink-0">
           <span className="font-semibold text-white text-sm">Resume</span>
@@ -217,16 +235,27 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
           </Button>
         </div>
 
-        {/* PDF viewer - takes remaining space */}
-        <div className="flex-1 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+        {/* PDF viewer */}
+        <div
+          className="bg-gray-100 dark:bg-gray-800"
+          style={{
+            flex: 1,
+            width: '100%',
+            overflow: 'auto',
+            position: 'relative'
+          }}
+        >
           <iframe
             src={`${resumePath}#view=FitH`}
             title="Resume PDF"
-            className="border-0"
             style={{
               width: '100%',
               height: '100%',
-              display: 'block'
+              border: 'none',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              left: 0
             }}
           />
         </div>
