@@ -13,8 +13,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const imgSrc = process.env.NODE_ENV === 'production'
-    ? '/Portfolio/images/Evans Minot Wood.jpg'
-    : '/images/Evans Minot Wood.jpg';
+    ? '/Portfolio/images/Evans-Minot-Wood.jpg'
+    : '/images/Evans-Minot-Wood.jpg';
 
 export default function Navbar({
     onToggleResume,
