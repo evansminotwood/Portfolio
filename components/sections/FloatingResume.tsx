@@ -181,12 +181,8 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
           position: 'fixed',
           top: 0,
           left: 0,
-          right: 0,
-          bottom: 0,
           width: '100vw',
           height: '100vh',
-          maxWidth: '100vw',
-          maxHeight: '100vh',
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
@@ -197,7 +193,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         {/* Mobile header */}
         <div
           className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 flex justify-between items-center shadow-lg"
-          style={{ flexShrink: 0 }}
+          style={{ flexShrink: 0, width: '100%' }}
         >
           <span className="font-semibold text-white text-sm">Resume</span>
           <Button
@@ -213,7 +209,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         {/* Action buttons */}
         <div
           className="bg-white dark:bg-gray-900 border-b px-4 py-2 flex gap-2"
-          style={{ flexShrink: 0 }}
+          style={{ flexShrink: 0, width: '100%' }}
         >
           <Button
             size="sm"
@@ -243,26 +239,28 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         <div
           style={{
             flex: 1,
-            width: '100vw',
-            maxWidth: '100vw',
+            width: '100%',
             overflow: 'auto',
             backgroundColor: '#f3f4f6',
-            position: 'relative'
+            WebkitOverflowScrolling: 'touch'
           }}
         >
-          <iframe
-            src={`${resumePath}#view=FitH`}
-            title="Resume PDF"
-            style={{
-              width: '100vw',
-              maxWidth: '100vw',
-              height: '100%',
-              border: 'none',
-              display: 'block',
-              margin: 0,
-              padding: 0
-            }}
-          />
+          <div style={{
+            width: '100%',
+            height: '100%',
+            overflow: 'hidden'
+          }}>
+            <iframe
+              src={`${resumePath}#view=FitH&zoom=page-width`}
+              title="Resume PDF"
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                display: 'block'
+              }}
+            />
+          </div>
         </div>
       </div>
     );
