@@ -173,18 +173,20 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
 
   if (!isOpen) return null;
 
+  // Prevent body scroll when resume is open on mobile
+  useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isOpen, isMobile]);
+
+  // ... rest of your code ...
+
   // Mobile full-screen view
   if (isMobile) {
-    // Prevent body scroll when resume is open
-    useEffect(() => {
-      if (isOpen) {
-        document.body.style.overflow = 'hidden';
-        return () => {
-          document.body.style.overflow = 'unset';
-        };
-      }
-    }, [isOpen]);
-
     return (
       <div
         className="fixed top-0 left-0 right-0 bottom-0 z-[9999] bg-background flex flex-col"
