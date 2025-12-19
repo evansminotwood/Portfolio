@@ -307,7 +307,11 @@ export default function Projects({
     const handleProjectSelect = (projectId: string) => {
         setSelectedProject(projectId);
         onViewChange?.(true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Scroll to top immediately for mobile, or with offset for desktop
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 0);
     };
 
     const handleBackToProjects = () => {

@@ -177,9 +177,9 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   // Mobile full-screen view
   if (isMobile) {
     return (
-      <div className="fixed inset-0 z-[9999] bg-background flex flex-col">
+      <div className="fixed inset-0 z-[9999] bg-background flex flex-col" style={{ height: '100dvh' }}>
         {/* Mobile header */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 flex justify-between items-center shadow-lg">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 flex justify-between items-center shadow-lg flex-shrink-0">
           <span className="font-semibold text-white text-sm">Resume</span>
           <Button
             size="sm"
@@ -192,7 +192,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         </div>
 
         {/* Action buttons */}
-        <div className="bg-white dark:bg-gray-900 border-b px-4 py-2 flex gap-2 shrink-0">
+        <div className="bg-white dark:bg-gray-900 border-b px-4 py-2 flex gap-2 flex-shrink-0">
           <Button
             size="sm"
             variant="outline"
@@ -217,8 +217,13 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
           </Button>
         </div>
 
-        {/* PDF viewer - takes remaining space */}
-        <div className="flex-1 min-h-0 overflow-hidden bg-gray-100 dark:bg-gray-800">
+        {/* PDF viewer - explicitly calculated height */}
+        <div
+          className="w-full overflow-auto bg-gray-100 dark:bg-gray-800"
+          style={{
+            height: 'calc(100dvh - 120px)'
+          }}
+        >
           <iframe
             src={`${resumePath}#view=FitH`}
             title="Resume PDF"
