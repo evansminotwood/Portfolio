@@ -202,7 +202,7 @@ export default function Projects({
             icon: FaMountain,
             gradient: "from-red-600 to-grey-600",
             tags: ["ThingLink", "360° Photography", "Interactive Media", "Education"],
-            techIcons: [SiJavascript, SiReact],
+            techIcons: [],
             links: {
                 live: null,
                 github: null

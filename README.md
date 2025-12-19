@@ -38,7 +38,7 @@ Here are some highlights from my portfolio:
 
 ### 4. **Mount Washington Summit Virtual Tour**
 - **Type:** Interactive Educational Experience
-- **Technologies:** React, JavaScript, Panorama Libraries
+- **Technologies:** ThingLink
 - **Description:** An interactive virtual tour of Mount Washington’s summit, created for educational purposes with immersive 360° views and hotspots.
 
 _For more projects, visit the [Projects Section](#projects) of the portfolio._
