@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import { Card, CardContent } from "@/components/ui/card";
 import { FaGraduationCap, FaMapMarkerAlt, FaCode, FaChartLine } from "react-icons/fa";
 
@@ -11,7 +9,7 @@ export default function About() {
         : '/images/Evans-Minot-Wood.jpg';
 
     return (
-        <section id="about" className="scroll-mt-24 py-12 bg-background flex justify-center px-4">
+        <section id="about" className="scroll-mt-24 min-h-[calc(100vh-6rem)] flex items-center justify-center bg-background px-4 py-12">
             <Card className="max-w-5xl w-full overflow-hidden">
                 <CardContent className="p-0">
                     <div className="flex flex-col md:flex-row">
