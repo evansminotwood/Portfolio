@@ -1,4 +1,3 @@
-# File: .github/workflows/publish.yml
 name: publish-to-github-pages
 on:
   push:
@@ -22,33 +21,27 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - name: Setup Node.js ⚙️ - Cache dependencies ⚡ - Install dependencies 🔧
-        uses: ./.github/workflows/setup-node
-
-      - name: Setup Pages ⚙️
-        uses: actions/configure-pages@v4
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
         with:
-          static_site_generator: next
+          node-version: 20
+          cache: "npm"
 
-      - name: Build with Next.js 🏗️
+      - name: Install dependencies 🔧
+        run: npm ci
+
+      - name: Build Next.js 🏗️
         run: npm run build
 
-      - name: List build output 📋
+      - name: List .next directory contents 📋
         run: |
-          echo "Checking if out directory exists..."
-          ls -la
-          if [ -d "out" ]; then
-            echo "✅ out directory exists"
-            ls -la out
-          else
-            echo "❌ out directory does not exist"
-            exit 1
-          fi
+          echo "Listing .next..."
+          ls -la .next
 
       - name: Upload artifact 📡
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./next
+          path: .next   # <-- point to .next folder
 
   deploy:
     environment:
@@ -59,6 +52,6 @@ jobs:
     needs: build
 
     steps:
-      - name: Publish to GitHub Pages 🚀
+      - name: Deploy to GitHub Pages 🚀
         id: deployment
         uses: actions/deploy-pages@v4
