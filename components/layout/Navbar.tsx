@@ -122,19 +122,31 @@ export default function Navbar({
                     </NavigationMenuList>
                 </NavigationMenu>
 
-                {/* Mobile Hamburger Button */}
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="md:hidden"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    aria-label="Toggle menu"
-                >
-                    {isMobileMenuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
-                </Button>
+                {/* Mobile Right Side: Resume Button + Hamburger */}
+                <div className="flex items-center gap-2 md:hidden">
+                    {/* Resume Button - Always visible on mobile */}
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleResumeClick}
+                        className="text-sm font-medium"
+                    >
+                        Resume
+                    </Button>
+
+                    {/* Hamburger Button */}
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="Toggle menu"
+                    >
+                        {isMobileMenuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
+                    </Button>
+                </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu - No longer includes Resume */}
             {isMobileMenuOpen && (
                 <div className="md:hidden border-t bg-background">
                     <nav className="container mx-auto py-4 flex flex-col gap-2">
@@ -153,13 +165,6 @@ export default function Navbar({
                                 {link.label}
                             </Button>
                         ))}
-                        <Button
-                            variant="ghost"
-                            className="justify-start text-base"
-                            onClick={handleResumeClick}
-                        >
-                            Resume
-                        </Button>
                     </nav>
                 </div>
             )}
