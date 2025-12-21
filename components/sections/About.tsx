@@ -80,7 +80,7 @@ export default function About() {
                         {/* Right: Content Section */}
                         <div className="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
                             <div className="mb-8">
-                                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-2">
+                                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-2">
                                     {aboutData.name}
                                 </h2>
                                 <div className="h-1 w-20 bg-blue-600 rounded-full"></div>
