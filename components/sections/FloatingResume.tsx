@@ -177,19 +177,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   if (isMobile) {
     return (
       <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'rgba(0, 0, 0, 0.8)',
-          zIndex: 9999,
-          padding: '20px'
-        }}
+        className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-5"
         onClick={() => setIsOpen(false)}
       >
         <div
@@ -313,8 +301,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         {/* Resize handle - bottom right corner */}
         <div
           onMouseDown={handleResizeStart}
-          className="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize group"
-          style={{ touchAction: 'none' }}
+          className="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize group touch-none"
         >
           <div className="absolute bottom-1 right-1 w-3 h-3 border-r-2 border-b-2 border-gray-400 dark:border-gray-500 group-hover:border-blue-500 transition-colors" />
         </div>
@@ -322,13 +309,11 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         {/* Resize handles - edges */}
         <div
           onMouseDown={handleResizeStart}
-          className="absolute bottom-0 right-0 h-2 cursor-ns-resize"
-          style={{ left: 0, right: 20, touchAction: 'none' }}
+          className="absolute bottom-0 left-0 right-4 h-2 cursor-ns-resize touch-none"
         />
         <div
           onMouseDown={handleResizeStart}
-          className="absolute right-0 bottom-0 w-2 cursor-ew-resize"
-          style={{ top: 48, bottom: 20, touchAction: 'none' }}
+          className="absolute top-12 right-0 bottom-4 w-2 cursor-ew-resize touch-none"
         />
       </div>
     </>
