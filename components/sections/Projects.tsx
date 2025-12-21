@@ -66,7 +66,6 @@ export default function Projects({
             ],
             technologies: ["React", "Node.js", "Express", "AWS Lambda", "API Gateway", "Aurora RDS", "PostgreSQL", "Gemini AI", "JavaScript", "CSS"],
             outcomes: [
-                "Successfully processed hundreds of receipt images with 90%+ accuracy",
                 "Reduced manual data entry time by 85% through AI automation",
                 "Achieved sub-second API response times through optimized queries",
                 "Built scalable infrastructure capable of handling thousands of concurrent users"
@@ -354,14 +353,12 @@ export default function Projects({
                 "Organized scene architecture with logical navigation flow through the summit facilities",
                 "Responsive design automatically working across desktop, tablet, mobile, and VR headsets",
                 "Multimedia asset management integrating photos, videos, audio files, and text content",
-                "Accessibility features including keyboard navigation and alternative text for screen readers",
-                "Cloud-based hosting through ThingLink ensuring reliable access and performance"
+                "Accessibility features including keyboard navigation and alternative text for screen readers"
             ],
             technologies: ["ThingLink Platform", "360° Photography", "Interactive Media Design", "Multimedia Integration", "UX Design", "Educational Technology", "Cloud Hosting"],
             outcomes: [
                 "Successfully delivered polished virtual tour to Mount Washington Observatory and six sponsors on schedule",
-                "Created accessible educational resource used by K-12 schools, universities, and weather education programs",
-                "Reached thousands of virtual visitors in the first month, expanding the Observatory's educational reach",
+                "Created accessible educational resource to be used by K-12 schools, universities, and weather education programs",
                 "Received positive feedback from Observatory staff, sponsors, and educators for engaging presentation",
                 "Enabled year-round virtual access to the summit regardless of dangerous weather conditions"
             ],

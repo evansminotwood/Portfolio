@@ -258,7 +258,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
           onMouseDown={handleDragStart}
         >
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-white rounded-full opacity-80" />
+            <div className="w-2 h-2 bg-blue-500 rounded-full opacity-80" />
             <span className="font-semibold text-white text-sm">Resume - Evans Minot Wood</span>
           </div>
           <div className="flex gap-2">
