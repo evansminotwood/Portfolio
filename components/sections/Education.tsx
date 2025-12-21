@@ -10,7 +10,7 @@ export default function Education() {
             name: "Worcester Polytechnic Institute",
             location: "Worcester, Massachusetts",
             graduation: "May 2027",
-            gpa: "3.9",
+            gpa: "3.85",
             gradient: "from-red-700 via-red-600 to-slate-400",
         },
         degrees: [
