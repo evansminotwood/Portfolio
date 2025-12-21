@@ -261,7 +261,7 @@ export default function Projects({
             techIcons: [SiNextdotjs, SiSpotify, SiReact],
             links: {
                 live: null,
-                github: "https://github.com/evansminotwood/Song-Requester"
+                github: null
             },
             date: "Summer 2024",
             team: "Individual Project",
