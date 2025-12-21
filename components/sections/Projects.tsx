@@ -145,8 +145,8 @@ export default function Projects({
             tags: ["Python", "Algorithms", "Automation", "Performance Analysis"],
             techIcons: [SiPython],
             links: {
-                live: null,
-                github: "https://github.com/evansminotwood/AOC-2025"
+                live: "https://github.com/evansminotwood/AOC-2025",
+                github: "https://github.com/evansminotwood/AOC-Solution-Runner"
             },
             date: "Dec 2025",
             team: "Personal Project",
