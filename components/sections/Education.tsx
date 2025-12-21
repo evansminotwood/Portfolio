@@ -2,8 +2,83 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { FaGraduationCap, FaAward, FaBook, FaLaptopCode } from "react-icons/fa";
+import { SiPython } from "react-icons/si";
 
 export default function Education() {
+    const educationData = {
+        school: {
+            name: "Worcester Polytechnic Institute",
+            location: "Worcester, Massachusetts",
+            graduation: "May 2027",
+            gpa: "3.9",
+            gradient: "from-red-700 via-red-600 to-slate-400",
+        },
+        degrees: [
+            {
+                id: "cs",
+                title: "Computer Science",
+                subtitle: "Bachelor of Science",
+                icon: FaLaptopCode,
+                description: "Focusing on software engineering, algorithms, and system design",
+                gradient: "from-blue-600 to-indigo-600",
+                borderColor: "border-blue-300 dark:border-blue-700",
+                bgColor: "bg-blue-50/50 dark:bg-blue-900/10",
+                iconColor: "text-blue-600 dark:text-blue-400"
+            },
+            {
+                id: "ds",
+                title: "Data Science",
+                subtitle: "Bachelor of Science",
+                icon: SiPython,
+                description: "Specializing in machine learning, statistical analysis, and data visualization",
+                gradient: "from-emerald-600 to-teal-600",
+                borderColor: "border-emerald-300 dark:border-emerald-700",
+                bgColor: "bg-emerald-50/50 dark:bg-emerald-900/10",
+                iconColor: "text-emerald-600 dark:text-emerald-400"
+            }
+        ],
+        coursework: [
+            "Software Engineering",
+            "Operating Systems",
+            "Database Systems",
+            "Algorithms",
+            "Machine Learning",
+            "Data Structures",
+            "Computer Systems",
+            "Statistical Methods",
+            "Web Development"
+        ],
+        honors: [
+            {
+                id: "deans",
+                title: "Dean's List",
+                subtitle: "2023 – Present (5x Recipient)",
+                description: "Recognized for outstanding academic performance",
+                gradient: "from-red-700 to-slate-500",
+                borderColor: "border-red-300 dark:border-red-700",
+                bgColor: "bg-red-50/50 dark:bg-red-900/10"
+            },
+            {
+                id: "omega",
+                title: "Order of Omega Honor Society",
+                subtitle: "2025 – Present",
+                description: "Greek life leadership honor society",
+                gradient: "from-amber-400 to-yellow-600",
+                borderColor: "border-amber-300 dark:border-amber-700",
+                bgColor: "bg-amber-50/50 dark:bg-amber-900/10"
+            },
+            {
+                id: "ame",
+                title: "Associate Member Education Award",
+                subtitle: "Phi Sigma Kappa",
+                description: "Excellence as New Member Educator",
+                gradient: "from-red-600 to-rose-600",
+                borderColor: "border-red-300 dark:border-red-700",
+                bgColor: "bg-red-50/50 dark:bg-red-900/10"
+            }
+        ]
+    };
+
     return (
         <section id="education" className="scroll-mt-24 py-32 bg-muted/30 flex justify-center px-4">
             <div className="max-w-5xl w-full">
@@ -19,19 +94,19 @@ export default function Education() {
                 {/* Main Education Card */}
                 <Card className="overflow-hidden shadow-xl">
                     <CardContent className="p-0">
-                        {/* Header Banner */}
-                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-white">
+                        {/* Header Banner - WPI Colors */}
+                        <div className={`bg-gradient-to-r ${educationData.school.gradient} p-8 text-white`}>
                             <div className="flex items-start gap-6">
                                 <div className="p-4 bg-white/20 rounded-xl backdrop-blur-sm">
                                     <FaGraduationCap className="text-5xl" />
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="text-3xl font-bold mb-2">Worcester Polytechnic Institute</h3>
-                                    <p className="text-xl text-blue-100 mb-2">Worcester, Massachusetts</p>
+                                    <h3 className="text-3xl font-bold mb-2">{educationData.school.name}</h3>
+                                    <p className="text-xl opacity-90 mb-2">{educationData.school.location}</p>
                                     <div className="flex flex-wrap gap-4 items-center">
-                                        <p className="text-lg text-blue-100">Expected Graduation: May 2027</p>
+                                        <p className="text-lg opacity-90">Expected Graduation: {educationData.school.graduation}</p>
                                         <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full">
-                                            <p className="text-lg font-semibold">GPA: 3.9</p>
+                                            <p className="text-lg font-semibold">GPA: {educationData.school.gpa}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -47,31 +122,26 @@ export default function Education() {
                                     <h4 className="text-2xl font-semibold text-foreground">Degrees</h4>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-6">
-                                    <div className="p-6 border-2 border-purple-200 dark:border-purple-800 rounded-lg bg-purple-50/50 dark:bg-purple-900/10">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <FaLaptopCode className="text-3xl text-purple-600 dark:text-purple-400" />
-                                            <div>
-                                                <h5 className="text-xl font-semibold text-foreground">Computer Science</h5>
-                                                <p className="text-sm text-muted-foreground">Bachelor of Science</p>
+                                    {educationData.degrees.map((degree) => {
+                                        const Icon = degree.icon;
+                                        return (
+                                            <div
+                                                key={degree.id}
+                                                className={`p-6 border-2 ${degree.borderColor} rounded-lg ${degree.bgColor}`}
+                                            >
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <Icon className={`text-3xl ${degree.iconColor}`} />
+                                                    <div>
+                                                        <h5 className="text-xl font-semibold text-foreground">{degree.title}</h5>
+                                                        <p className="text-sm text-muted-foreground">{degree.subtitle}</p>
+                                                    </div>
+                                                </div>
+                                                <p className="text-muted-foreground">
+                                                    {degree.description}
+                                                </p>
                                             </div>
-                                        </div>
-                                        <p className="text-muted-foreground">
-                                            Focusing on software engineering, algorithms, and system design
-                                        </p>
-                                    </div>
-
-                                    <div className="p-6 border-2 border-green-200 dark:border-green-800 rounded-lg bg-green-50/50 dark:bg-green-900/10">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <FaBook className="text-3xl text-green-600 dark:text-green-400" />
-                                            <div>
-                                                <h5 className="text-xl font-semibold text-foreground">Data Science</h5>
-                                                <p className="text-sm text-muted-foreground">Bachelor of Science</p>
-                                            </div>
-                                        </div>
-                                        <p className="text-muted-foreground">
-                                            Specializing in machine learning, statistical analysis, and data visualization
-                                        </p>
-                                    </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
 
@@ -82,20 +152,10 @@ export default function Education() {
                                     <h4 className="text-2xl font-semibold text-foreground">Relevant Coursework</h4>
                                 </div>
                                 <div className="grid md:grid-cols-3 gap-4">
-                                    {[
-                                        "Software Engineering",
-                                        "Operating Systems",
-                                        "Database Systems",
-                                        "Algorithms",
-                                        "Machine Learning",
-                                        "Data Structures",
-                                        "Computer Systems",
-                                        "Statistical Methods",
-                                        "Web Development"
-                                    ].map((course, idx) => (
+                                    {educationData.coursework.map((course, idx) => (
                                         <div
                                             key={idx}
-                                            className="p-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-lg border border-blue-100 dark:border-blue-800 hover:shadow-md transition-shadow"
+                                            className="p-4 bg-slate-50 dark:bg-slate-900/30 rounded-lg border border-slate-200 dark:border-slate-700 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all"
                                         >
                                             <p className="text-sm font-medium text-foreground">{course}</p>
                                         </div>
@@ -110,26 +170,21 @@ export default function Education() {
                                     <h4 className="text-2xl font-semibold text-foreground">Honors & Recognition</h4>
                                 </div>
                                 <div className="grid md:grid-cols-3 gap-4">
-                                    <div className="p-5 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
-                                        <h5 className="text-lg font-semibold text-foreground mb-1">Dean's List</h5>
-                                        <p className="text-sm text-muted-foreground mb-2">2023 – Present (4x Recipient)</p>
-                                        <p className="text-sm text-muted-foreground">Recognized for outstanding academic performance</p>
-                                    </div>
-                                    <div className="p-5 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 rounded-lg border border-purple-200 dark:border-purple-800">
-                                        <h5 className="text-lg font-semibold text-foreground mb-1">Order of Omega Honor Society</h5>
-                                        <p className="text-sm text-muted-foreground mb-2">2025 – Present</p>
-                                        <p className="text-sm text-muted-foreground">Greek life leadership honor society</p>
-                                    </div>
-                                    <div className="p-5 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                                        <h5 className="text-lg font-semibold text-foreground mb-1">Associate Member Education Award</h5>
-                                        <p className="text-sm text-muted-foreground mb-2">Phi Sigma Kappa</p>
-                                        <p className="text-sm text-muted-foreground">Excellence as New Member Educator</p>
-                                    </div>
+                                    {educationData.honors.map((honor) => (
+                                        <div
+                                            key={honor.id}
+                                            className={`p-5 ${honor.bgColor} rounded-lg border-2 ${honor.borderColor} hover:shadow-lg transition-shadow`}
+                                        >
+                                            <h5 className="text-lg font-semibold text-foreground mb-1">{honor.title}</h5>
+                                            <p className="text-sm text-muted-foreground mb-2">{honor.subtitle}</p>
+                                            <p className="text-sm text-muted-foreground">{honor.description}</p>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
 
                             {/* Academic Focus */}
-                            <div className="mt-10 p-6 bg-blue-50 dark:bg-blue-950/20 rounded-lg border-l-4 border-blue-600">
+                            <div className="mt-10 p-6 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900/30 dark:to-blue-900/20 rounded-lg border-l-4 border-blue-600">
                                 <p className="text-muted-foreground mb-3">
                                     <strong className="text-foreground">The Journey:</strong> As a child, I dreamt of building a computer that could think and reason for itself. That dream sparked a lifelong passion for artificial intelligence and problem-solving that continues to drive my academic pursuits today.
                                 </p>

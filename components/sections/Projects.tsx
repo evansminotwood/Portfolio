@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FaCode, FaGithub, FaExternalLinkAlt, FaLaptopCode, FaMusic, FaMountain, FaArrowRight, FaLinkedin, FaCamera, FaEdit, FaGlobe } from "react-icons/fa";
-import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSpotify, SiNextdotjs, SiNodedotjs, SiMysql, SiTailwindcss, SiTypescript, SiHtml5, SiCss3, SiGit, SiExpress, SiC, SiGo, SiRust, SiNumpy, SiScikitlearn, SiPandas } from "react-icons/si";
+import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSpotify, SiNextdotjs, SiNodedotjs, SiMysql, SiTailwindcss, SiTypescript, SiHtml5, SiCss3, SiGit, SiExpress, SiC, SiGo, SiRust, SiNumpy, SiScikitlearn, SiPandas, SiGooglechrome } from "react-icons/si";
 
 // Import the ProjectDetail component
 import ProjectDetail from "./ProjectDetail";
@@ -26,7 +26,7 @@ export default function Projects({
             subtitle: "AI-Powered Receipt Management Platform",
             description: "Full-stack web application for shopper, receipt, and store management with AI-powered receipt analysis",
             icon: FaLaptopCode,
-            gradient: "from-blue-600 to-cyan-600",
+            gradient: "from-blue-500 via-purple-500 to-cyan-500",
             tags: ["React", "Node.js", "AWS Lambda", "Aurora RDS", "Gemini API"],
             techIcons: [SiReact, SiJavascript, SiAwslambda],
             links: {
@@ -84,7 +84,7 @@ export default function Projects({
             subtitle: "Full-Featured Language Compiler",
             description: "Fully functional compiler that transforms Python code into optimized x86 assembly with advanced language features",
             icon: FaCode,
-            gradient: "from-purple-600 to-pink-600",
+            gradient: "from-purple-600 via-violet-600 to-amber-500",
             tags: ["Python", "x86 Assembly", "LALR Parser", "Compiler Design"],
             techIcons: [SiPython],
             links: {
@@ -136,13 +136,127 @@ export default function Projects({
                 "Understanding assembly deepened my appreciation for what high-level languages abstract away"
             ]
         },
+        advent2025: {
+            id: "advent2025",
+            title: "AOC Solution Runner",
+            subtitle: "Automated Python Framework for Algorithmic Challenges",
+            description: "A custom-built Python framework for solving Advent of Code problems, featuring automatic input fetching, runtime analysis, and empirical Big-O complexity estimation.",
+            icon: SiPython,
+            gradient: "from-orange-500 via-red-500 to-rose-600",
+            tags: ["Python", "Algorithms", "Automation", "Performance Analysis"],
+            techIcons: [SiPython],
+            links: {
+                live: null,
+                github: "https://github.com/evansminotwood/AOC-2025"
+            },
+            date: "Dec 2025",
+            team: "Personal Project",
+            overview: "Built a comprehensive Python framework for tackling Advent of Code challenges with automated input management, solution execution, and performance profiling. The runner includes empirical complexity analysis to help understand algorithmic efficiency.",
+            problem: "Solving algorithmic puzzles requires managing inputs, testing multiple solution parts, measuring performance, and understanding time complexity. Doing this manually for each problem is tedious and error-prone, slowing down the learning process.",
+            solution: "Developed an automated runner that handles the entire workflow: fetches inputs via session authentication, executes solutions with precise timing, estimates Big-O complexity empirically by running on scaled data subsets, and provides formatted output with performance metrics.",
+            features: [
+                {
+                    title: "Automatic Input Management",
+                    description: "Fetches and caches problem inputs using AOC session authentication. Inputs are stored locally and reused, eliminating manual downloads and ensuring consistent test data."
+                },
+                {
+                    title: "Empirical Complexity Analysis",
+                    description: "Estimates algorithmic complexity by running solutions on scaled subsets (25%, 50%, 100%) of input data and analyzing runtime growth patterns. Provides Big-O classifications from O(1) to O(n!)."
+                },
+                {
+                    title: "Flexible Execution Modes",
+                    description: "Run individual days, the latest solution, or all implemented days for a year. Supports multiple years and automatically detects available solutions."
+                },
+                {
+                    title: "Performance Profiling",
+                    description: "High-precision timing with formatted output showing at least 3 significant figures. Helps identify optimization opportunities and track performance improvements."
+                }
+            ],
+            technicalHighlights: [
+                "Empirical Big-O estimation using logarithmic regression on scaled runtime data",
+                "Modular architecture supporting multiple years and extensible solution structure",
+                "Environment-based configuration for secure session management",
+                "Dynamic module loading with automatic solution detection",
+                "NumPy-powered complexity analysis with polynomial fitting"
+            ],
+            technologies: ["Python", "NumPy", "Algorithms", "Performance Analysis", "Automation", "REST APIs"],
+            outcomes: [
+                "Built a reusable framework that streamlines algorithmic problem-solving workflows",
+                "Solved 5+ days of Advent of Code 2025 challenges (12 problems posted as of Saturday, December 20th) using the runner",
+                "Implemented empirical complexity estimation to better understand solution efficiency",
+                "Created a maintainable system for continued practice and learning"
+            ],
+            lessonsLearned: [
+                "Good tooling amplifies learning by removing friction from the practice loop",
+                "Empirical analysis provides practical insights that complement theoretical Big-O knowledge",
+                "Building infrastructure early pays dividends across multiple problems",
+                "Well-structured automation makes it easier to return to projects after breaks"
+            ]
+        },
+        deadheadsShortcut: {
+            id: "deadheadsShortcut",
+            title: "DeadHeads' Shortcut",
+            subtitle: "Chrome Extension for Grateful Dead Archive Access",
+            description: "A Chrome extension that enhances the Grateful Dead fan experience by adding direct Archive.org links to show listings on gratefulsets.net, enabling instant access to live recordings.",
+            icon: SiGooglechrome,
+            gradient: "from-purple-500 via-pink-500 to-orange-400",
+            tags: ["Chrome Extension", "JavaScript", "Web Scraping", "Music", "DOM Manipulation"],
+            techIcons: [SiJavascript, SiGooglechrome],
+            links: {
+                live: null,
+                github: "https://github.com/evansminotwood/deadheads-shortcut"
+            },
+            date: "Dec 2025",
+            team: "30 Days of Dead 2025 Initiative",
+            overview: "Built for the 30 Days of Dead 2025 event, this Chrome extension seamlessly integrates Archive.org links into Grateful Dead show tables on gratefulsets.net. It automatically detects show dates and provides one-click access to live recordings, making it easier for fans to explore the band's extensive archive.",
+            problem: "Grateful Dead fans frequently browse show listings on gratefulsets.net but must manually navigate to Archive.org to find recordings. This creates friction in the discovery process and interrupts the flow of exploring setlists and finding listenable versions.",
+            solution: "Developed a Manifest V3 Chrome extension that uses content scripts to detect show tables, extract dates, and dynamically inject Archive.org links with headphone emoji (🎧) icons. The extension handles both static and dynamically-loaded content, ensuring compatibility with modern React-driven pages.",
+            features: [
+                {
+                    title: "Automatic Link Injection",
+                    description: "Scans Grateful Dead show tables and adds Archive.org links next to each date, enabling instant access to live recordings without leaving the page."
+                },
+                {
+                    title: "Dynamic Content Support",
+                    description: "Uses MutationObserver to detect page updates and automatically add links to newly loaded content, ensuring compatibility with single-page applications."
+                },
+                {
+                    title: "Quick Navigation",
+                    description: "Clicking the extension icon opens the Grateful Dead songs page directly, providing fast access to the main browsing interface."
+                },
+                {
+                    title: "Smart Table Detection",
+                    description: "Intelligently identifies the correct show table by looking for Date and Venue headers, with fallback strategies for different page layouts."
+                }
+            ],
+            technicalHighlights: [
+                "Manifest V3 compliance with modern Chrome extension architecture",
+                "DOM manipulation with intelligent table detection and colspan adjustment",
+                "Debounced mutation observation to optimize performance on dynamic pages",
+                "CSS injection for seamless visual integration with existing site styles",
+                "Event handling to prevent link clicks from triggering row selection"
+            ],
+            technologies: ["JavaScript", "Chrome Extensions API", "DOM Manipulation", "CSS", "Manifest V3", "MutationObserver"],
+            outcomes: [
+                "Streamlined the workflow for Grateful Dead fans exploring live recordings",
+                "Created a lightweight, non-intrusive extension that enhances the browsing experience",
+                "Achieved zero-configuration installation with automatic detection of show tables",
+                "Built a maintainable codebase with clear separation of concerns across files"
+            ],
+            lessonsLearned: [
+                "Manifest V3 requires service workers instead of background pages, changing extension architecture patterns",
+                "Debouncing mutation observers is critical for performance when monitoring dynamic content",
+                "Colspan adjustments and careful DOM insertion ensure visual consistency with existing layouts",
+                "Content scripts must be resilient to varied page structures and loading patterns"
+            ]
+        },
         spotify: {
             id: "spotify",
             title: "Spotify Song Requester",
             subtitle: "DJ Playlist Management Tool",
             description: "Next.js application enabling users to search and request songs for DJ playlists with Spotify API integration",
             icon: FaMusic,
-            gradient: "from-green-600 to-emerald-600",
+            gradient: "from-emerald-500 via-green-500 to-teal-600",
             tags: ["Next.js", "Spotify API", "TypeScript", "React"],
             techIcons: [SiNextdotjs, SiSpotify, SiReact],
             links: {
@@ -200,7 +314,7 @@ export default function Projects({
             subtitle: "Interactive Educational Experience",
             description: "Interactive 360° virtual tour created with ThingLink in collaboration with Mount Washington Observatory",
             icon: FaMountain,
-            gradient: "from-red-600 to-grey-600",
+            gradient: "from-sky-400 via-blue-500 to-slate-600",
             tags: ["ThingLink", "360° Photography", "Interactive Media", "Education"],
             techIcons: [FaCamera, FaEdit, FaGlobe],
             links: {
@@ -265,6 +379,8 @@ export default function Projects({
     const projects = [
         projectsData.shopcomp,
         projectsData.compiler,
+        projectsData.advent2025,
+        projectsData.deadheadsShortcut,
         projectsData.spotify,
         projectsData.mtwash
     ];

@@ -266,7 +266,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
       >
         {/* Title bar */}
         <div
-          className="bg-gradient-to-r from-blue-600 to-blue-500 px-4 py-3 flex justify-between items-center cursor-grab active:cursor-grabbing"
+          className="bg-gradient-to-r bg-[#0a0e1a] px-4 py-3 flex justify-between items-center cursor-grab active:cursor-grabbing"
           onMouseDown={handleDragStart}
         >
           <div className="flex items-center gap-2">
