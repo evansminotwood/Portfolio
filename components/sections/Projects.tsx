@@ -355,7 +355,7 @@ export default function Projects({
                 "Multimedia asset management integrating photos, videos, audio files, and text content",
                 "Accessibility features including keyboard navigation and alternative text for screen readers"
             ],
-            technologies: ["ThingLink Platform", "360° Photography", "Interactive Media Design", "Multimedia Integration", "UX Design", "Educational Technology", "Cloud Hosting"],
+            technologies: ["ThingLink Platform", "360° Photography", "Interactive Media Design", "Multimedia Integration", "UX Design", "Educational Technology"],
             outcomes: [
                 "Successfully delivered polished virtual tour to Mount Washington Observatory and six sponsors on schedule",
                 "Created accessible educational resource to be used by K-12 schools, universities, and weather education programs",
