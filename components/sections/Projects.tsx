@@ -137,7 +137,7 @@ export default function Projects({
         },
         advent2025: {
             id: "advent2025",
-            title: "AOC Solution Runner",
+            title: "Advent Of Code Solution Runner",
             subtitle: "Automated Python Framework for Algorithmic Challenges",
             description: "A custom-built Python framework for solving Advent of Code problems, featuring automatic input fetching, runtime analysis, and empirical Big-O complexity estimation.",
             icon: SiPython,
@@ -146,7 +146,7 @@ export default function Projects({
             techIcons: [SiPython],
             links: {
                 live: "https://github.com/evansminotwood/AOC-2025",
-                github: "https://github.com/evansminotwood/AOC-Solution-Runner"
+                github: "https://github.com/evansminotwood/Adevnt-Of-Code-Solution-Runner"
             },
             date: "Dec 2025",
             team: "Personal Project",
