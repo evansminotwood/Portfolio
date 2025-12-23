@@ -12,7 +12,7 @@ I'm passionate about building innovative solutions at the intersection of techno
 - **Data Science & AI:** Extracting insights from data and integrating intelligent models into applications.
 - **Music & Multimedia:** Digital music production, interactive media, and creative technology projects.
 
-When I'm not coding, you'll find me performing with local bands or exploring new technologies.
+When I'm not coding, you'll find me making music or exploring new technologies.
 
 ---
 
