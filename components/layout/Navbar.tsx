@@ -23,9 +23,7 @@ export default function Navbar({
 }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const imgSrc = process.env.NODE_ENV === 'production'
-        ? '/Portfolio/images/Evans-Minot-Wood.jpg'
-        : '/images/Evans-Minot-Wood.jpg';
+    const imgSrc = '/images/Evans-Minot-Wood.jpg';
 
     const handleNavClick = (id: string) => {
         setIsMobileMenuOpen(false);

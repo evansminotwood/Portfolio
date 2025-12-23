@@ -4,9 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { FaGraduationCap, FaMapMarkerAlt, FaCode, FaChartLine } from "react-icons/fa";
 
 export default function About() {
-    const imgSrc = process.env.NODE_ENV === 'production'
-        ? '/Portfolio/images/Evans-Minot-Wood.jpg'
-        : '/images/Evans-Minot-Wood.jpg';
+    const imgSrc = '/images/Evans-Minot-Wood.jpg';
 
     const aboutData = {
         name: "Evans Minot Wood",
