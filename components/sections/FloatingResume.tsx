@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaDownload, FaExternalLinkAlt } from "react-icons/fa";
@@ -14,7 +13,6 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState({ width: 700, height: 850 });
   const [isInitialized, setIsInitialized] = useState(false);
@@ -33,7 +31,6 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -47,9 +44,11 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         setPosition({ x: 0, y: 0 });
         setSize({ width: window.innerWidth, height: window.innerHeight });
       } else {
-        // On desktop, position in bottom right
+        // On desktop, position in bottom right but ensure top is visible
         const x = Math.max(20, window.innerWidth - size.width - 50);
-        const y = Math.max(20, window.innerHeight - size.height - 50);
+        const maxY = window.innerHeight - size.height - 50;
+        // Ensure the window never starts above the top of the viewport (minimum y = 0)
+        const y = Math.max(0, maxY);
         setPosition({ x, y });
       }
       setIsInitialized(true);
@@ -60,14 +59,17 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const snapPosition = (x: number, y: number) => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-
     let snapX = x;
     let snapY = y;
 
     if (x < SNAP_THRESHOLD) snapX = 0;
-    if (y < SNAP_THRESHOLD) snapY = 0;
+    // Don't snap to top if it would hide the title bar - keep minimum y at 0
+    if (y < SNAP_THRESHOLD) snapY = Math.max(0, y);
     if (x + size.width > vw - SNAP_THRESHOLD) snapX = vw - size.width;
-    if (y + size.height > vh - SNAP_THRESHOLD) snapY = vh - size.height;
+    // Only snap to bottom if there's enough vertical space
+    if (y + size.height > vh - SNAP_THRESHOLD && vh > size.height) {
+      snapY = vh - size.height;
+    }
 
     return { x: snapX, y: snapY };
   };
@@ -96,7 +98,6 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
     let newX = dragStart.current.startX + deltaX;
     let newY = dragStart.current.startY + deltaY;
 
-    // Clamp to viewport
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     newX = Math.max(0, Math.min(newX, vw - size.width));
@@ -110,9 +111,8 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
     setIsDragging(false);
   };
 
-  // Resize handlers
   const handleResizeStart = (e: React.MouseEvent) => {
-    if (isMobile) return; // Disable resizing on mobile
+    if (isMobile) return;
     e.stopPropagation();
     setIsResizing(true);
     resizeStart.current = {
@@ -133,7 +133,6 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
     let newWidth = Math.max(MIN_WIDTH, resizeStart.current.startWidth + deltaX);
     let newHeight = Math.max(MIN_HEIGHT, resizeStart.current.startHeight + deltaY);
 
-    // Constrain to viewport
     const maxWidth = window.innerWidth - position.x;
     const maxHeight = window.innerHeight - position.y;
     newWidth = Math.min(newWidth, maxWidth);
@@ -146,7 +145,6 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
     setIsResizing(false);
   };
 
-  // Global mouse listeners
   useEffect(() => {
     if (isDragging) {
       document.addEventListener("mousemove", handleDrag);
@@ -175,47 +173,55 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   if (isMobile) {
     return (
       <div
-        className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-5"
+        className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
         onClick={() => setIsOpen(false)}
       >
         <div
-          className="bg-white dark:bg-gray-900 rounded-lg p-8 max-w-sm w-full"
+          className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-md p-6 space-y-4"
           onClick={(e) => e.stopPropagation()}
         >
-          <h2 className="text-2xl font-bold mb-4 text-center">View Resume</h2>
-          <p className="text-muted-foreground text-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center">
+            View Resume
+          </h2>
+
+          <p className="text-gray-600 dark:text-gray-400 text-center">
             Choose how you'd like to view the resume
           </p>
 
-          <div className="flex flex-col gap-3">
+          <div className="space-y-3">
             <Button
+              onClick={() => {
+                window.open(resumePath, '_blank');
+                setIsOpen(false);
+              }}
+              className="w-full flex items-center justify-center gap-2"
               size="lg"
-              className="w-full"
-              asChild
             >
-              <a href={resumePath} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)}>
-                <FaExternalLinkAlt className="mr-2" />
-                Open in New Tab
-              </a>
+              <FaExternalLinkAlt className="w-4 h-4" />
+              Open in New Tab
             </Button>
 
             <Button
-              size="lg"
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = resumePath;
+                link.download = 'Evans-Minot-Wood-Resume.pdf';
+                link.click();
+                setIsOpen(false);
+              }}
+              className="w-full flex items-center justify-center gap-2"
               variant="outline"
-              className="w-full"
-              asChild
+              size="lg"
             >
-              <a href={resumePath} download="Evans-Minot-Wood-Resume.pdf" onClick={() => setIsOpen(false)}>
-                <FaDownload className="mr-2" />
-                Download PDF
-              </a>
+              <FaDownload className="w-4 h-4" />
+              Download PDF
             </Button>
 
             <Button
-              size="lg"
+              onClick={() => setIsOpen(false)}
               variant="ghost"
               className="w-full"
-              onClick={() => setIsOpen(false)}
+              size="lg"
             >
               Cancel
             </Button>
@@ -231,23 +237,20 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
       {/* Overlay to catch all mouse events during drag/resize */}
       {(isDragging || isResizing) && (
         <div
-          className="fixed inset-0 z-[9998]"
-          style={{ cursor: isDragging ? 'grabbing' : 'nwse-resize' }}
+          className="fixed inset-0 z-[60] cursor-move"
+          style={{ cursor: isResizing ? 'nwse-resize' : 'move' }}
         />
       )}
 
       {/* Floating window */}
       <div
         ref={windowRef}
-        className="fixed bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 shadow-2xl rounded-lg overflow-hidden z-[9999] select-none"
+        className="fixed bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden z-50"
         style={{
-          left: position.x,
-          top: position.y,
-          width: size.width,
-          height: size.height,
-          cursor: isDragging ? 'grabbing' : 'default',
-          opacity: isInitialized ? 1 : 0,
-          transition: isInitialized ? 'none' : 'opacity 0.2s',
+          left: `${position.x}px`,
+          top: `${position.y}px`,
+          width: `${size.width}px`,
+          height: `${size.height}px`,
         }}
       >
         {/* Title bar */}
@@ -259,40 +262,20 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
             <div className="w-2 h-2 bg-blue-500 rounded-full opacity-80" />
             <span className="font-semibold text-white text-sm">Resume - Evans Minot Wood</span>
           </div>
-          <div className="flex gap-2">
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-7 px-2 text-xs text-white hover:bg-white/20 rounded"
-              asChild
-            >
-              <a href={resumePath} download="Evans-Minot-Wood-Resume.pdf">
-                <FaDownload />
-              </a>
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-7 w-7 p-0 text-white hover:bg-white/20 rounded"
-              onClick={() => setIsOpen(false)}
-            >
-              ✕
-            </Button>
-          </div>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="text-white hover:bg-white/20 rounded px-2 py-1 transition-colors"
+          >
+            ✕
+          </button>
         </div>
 
         {/* Content area */}
-        <div
-          className="relative w-full bg-gray-50 dark:bg-gray-800"
-          style={{ height: 'calc(100% - 48px)' }}
-        >
+        <div className="flex-1 overflow-hidden">
           <iframe
             src={resumePath}
-            title="Resume PDF"
             className="w-full h-full border-0"
-            style={{
-              pointerEvents: isDragging || isResizing ? 'none' : 'auto',
-            }}
+            title="Resume PDF Viewer"
           />
         </div>
 
