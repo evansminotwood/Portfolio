@@ -158,6 +158,7 @@ export default function Projects({
             },
             date: "2025",
             team: "Personal Project",
+            coverImage: "/projects/Aureus.png",
             overview: "Aureus is a comprehensive, distributed coin portfolio management platform integrating multiple data sources and AI models. It combines a high-performance Go backend, modern Next.js frontend, and dedicated ML microservice for image analysis. The platform features PCGS API integration for professional grading data, automated metal composition tracking with spot price integration, historical price snapshots, and intelligent auto-population workflows that streamline data entry while maintaining data integrity.",
             problem: "Coin collectors face fragmented workflows: spreadsheets for tracking, manual PCGS lookups for grading data, separate calculations for metal content and melt values, and limited tools for image-based identification. Professional platforms are expensive and lack ML capabilities, while free tools don't integrate multiple data sources or provide comprehensive portfolio analytics.",
             solution: "Built a production-grade microservices architecture that unifies coin identification, professional grading data, metal composition analysis, and portfolio management. The system intelligently combines AI-powered image analysis (CLIP + OCR), real-time PCGS API integration, automated metal composition lookups, and spot price tracking. Smart auto-population features reduce manual data entry while allowing user override, and comprehensive error handling ensures graceful degradation when external APIs are unavailable.",
@@ -514,40 +515,51 @@ export default function Projects({
         projectsData.mtwash
     ];
 
-    // Technology carousel - based on resume skills
+    // Technology carousel - comprehensive list of all technologies used
     const technologies = [
         // Languages
-        { icon: SiC, name: "C", color: "text-[#A8B9CC]" },
-        { icon: SiPython, name: "Python", color: "text-[#3776AB]" },
-        { icon: SiGo, name: "Golang", color: "text-[#00ADD8]" },
-        { icon: SiRust, name: "Rust", color: "text-[#000000] dark:text-[#FFFFFF]" },
-        { icon: SiJavascript, name: "JavaScript", color: "text-[#F7DF1E]" },
-        { icon: SiTypescript, name: "TypeScript", color: "text-[#3178C6]" },
-        // Frameworks/Libraries
-        { icon: SiReact, name: "React", color: "text-[#61DAFB]" },
-        { icon: SiNextdotjs, name: "Next.js", color: "text-foreground" },
-        { icon: SiNodedotjs, name: "Node.js", color: "text-[#339933]" },
-        { icon: SiNumpy, name: "NumPy", color: "text-[#013243]" },
-        { icon: SiScikitlearn, name: "scikit-learn", color: "text-[#F7931E]" },
-        { icon: SiPandas, name: "Pandas", color: "text-[#150458]" },
-        // Cloud/Databases
-        { icon: SiAwslambda, name: "AWS Lambda", color: "text-[#FF9900]" },
-        { icon: SiMysql, name: "SQL", color: "text-[#4169E1]" },
+        { icon: SiC, name: "C", color: "text-[#A8B9CC]", bgLight: "bg-slate-900", bgDark: "dark:bg-slate-800" },
+        { icon: SiPython, name: "Python", color: "text-[#3776AB]", bgLight: "bg-yellow-50", bgDark: "dark:bg-blue-950" },
+        { icon: SiGo, name: "Go", color: "text-[#00ADD8]", bgLight: "bg-slate-900", bgDark: "dark:bg-cyan-950" },
+        { icon: SiRust, name: "Rust", color: "text-[#000000] dark:text-[#FFFFFF]", bgLight: "bg-orange-50", bgDark: "dark:bg-gray-900" },
+        { icon: SiJavascript, name: "JavaScript", color: "text-[#F7DF1E]", bgLight: "bg-gray-900", bgDark: "dark:bg-yellow-950" },
+        { icon: SiTypescript, name: "TypeScript", color: "text-[#3178C6]", bgLight: "bg-blue-50", bgDark: "dark:bg-blue-950" },
+        // Frontend Frameworks/Libraries
+        { icon: SiReact, name: "React", color: "text-[#61DAFB]", bgLight: "bg-slate-900", bgDark: "dark:bg-cyan-950" },
+        { icon: SiNextdotjs, name: "Next.js", color: "text-foreground", bgLight: "bg-white", bgDark: "dark:bg-gray-900" },
+        { icon: SiHtml5, name: "HTML5", color: "text-[#E34F26]", bgLight: "bg-orange-50", bgDark: "dark:bg-orange-950" },
+        { icon: SiCss3, name: "CSS3", color: "text-[#1572B6]", bgLight: "bg-blue-50", bgDark: "dark:bg-blue-950" },
+        { icon: SiTailwindcss, name: "Tailwind CSS", color: "text-[#06B6D4]", bgLight: "bg-slate-900", bgDark: "dark:bg-cyan-950" },
+        // Backend Frameworks
+        { icon: SiNodedotjs, name: "Node.js", color: "text-[#339933]", bgLight: "bg-green-50", bgDark: "dark:bg-green-950" },
+        { icon: SiFastapi, name: "FastAPI", color: "text-[#009688]", bgLight: "bg-teal-50", bgDark: "dark:bg-teal-950" },
+        // ML/Data Science
+        { icon: SiPytorch, name: "PyTorch", color: "text-[#EE4C2C]", bgLight: "bg-orange-50", bgDark: "dark:bg-orange-950" },
+        { icon: SiNumpy, name: "NumPy", color: "text-[#013243]", bgLight: "bg-cyan-50", bgDark: "dark:bg-slate-900" },
+        { icon: SiScikitlearn, name: "scikit-learn", color: "text-[#F7931E]", bgLight: "bg-orange-50", bgDark: "dark:bg-orange-950" },
+        { icon: SiPandas, name: "Pandas", color: "text-[#150458]", bgLight: "bg-purple-50", bgDark: "dark:bg-purple-950" },
+        // Databases
+        { icon: SiPostgresql, name: "PostgreSQL", color: "text-[#4169E1]", bgLight: "bg-blue-50", bgDark: "dark:bg-blue-950" },
+        { icon: SiMysql, name: "MySQL", color: "text-[#4479A1]", bgLight: "bg-blue-50", bgDark: "dark:bg-blue-950" },
+        // Cloud/DevOps
+        { icon: SiAwslambda, name: "AWS Lambda", color: "text-[#FF9900]", bgLight: "bg-orange-50", bgDark: "dark:bg-orange-950" },
+        { icon: SiDocker, name: "Docker", color: "text-[#2496ED]", bgLight: "bg-blue-50", bgDark: "dark:bg-blue-950" },
         // Tools
-        { icon: SiGit, name: "Git", color: "text-[#F05032]" },
-        { icon: SiHtml5, name: "HTML5", color: "text-[#E34F26]" },
-        { icon: SiCss3, name: "CSS3", color: "text-[#1572B6]" },
-        { icon: SiTailwindcss, name: "Tailwind", color: "text-[#06B6D4]" },
+        { icon: SiGit, name: "Git", color: "text-[#F05032]", bgLight: "bg-orange-50", bgDark: "dark:bg-orange-950" },
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
 
     useEffect(() => {
+        if (isPaused) return;
+
         const interval = setInterval(() => {
             setCurrentIndex((prev) => (prev + 1) % technologies.length);
         }, 2000);
         return () => clearInterval(interval);
-    }, [technologies.length]);
+    }, [isPaused, technologies.length]);
+
 
     const handleProjectSelect = (projectId: string) => {
         setSelectedProject(projectId);
@@ -598,34 +610,37 @@ export default function Projects({
                         <h3 className="text-center text-xl font-semibold text-foreground mb-6">Technologies I Work With</h3>
 
                         {/* Carousel Track */}
-                        <div className="relative h-24 flex items-center justify-center">
+                        <div className="relative h-32 flex items-center justify-center overflow-hidden">
                             <div
-                                className="flex gap-12 transition-transform duration-700 ease-in-out"
+                                className="flex gap-16 absolute left-1/2"
                                 style={{
-                                    transform: `translateX(-${currentIndex * 120}px)`
+                                    transform: `translateX(calc(-50% - ${currentIndex * 144}px))`,
+                                    transition: 'transform 700ms ease-in-out'
                                 }}
                             >
-                                {/* Duplicate array for seamless loop */}
+                                {/* Triple the array for seamless looping */}
                                 {[...technologies, ...technologies, ...technologies].map((tech, idx) => {
                                     const Icon = tech.icon;
-                                    const offset = Math.abs(idx - currentIndex - technologies.length);
+                                    const offset = Math.abs(idx - currentIndex);
                                     const isCenter = offset === 0;
-                                    const scale = isCenter ? 1 : Math.max(0.6, 1 - offset * 0.2);
-                                    const opacity = isCenter ? 1 : Math.max(0.3, 1 - offset * 0.3);
+                                    const baseScale = isCenter ? 1 : Math.max(0.7, 1 - offset * 0.15);
+                                    const baseOpacity = isCenter ? 1 : Math.max(0.4, 1 - offset * 0.25);
 
                                     return (
                                         <div
                                             key={idx}
-                                            className="flex flex-col items-center justify-center min-w-[80px] transition-all duration-700"
+                                            className="flex flex-col items-center justify-center min-w-[96px] transition-all duration-300 cursor-pointer group"
                                             style={{
-                                                transform: `scale(${scale})`,
-                                                opacity: opacity
+                                                transform: `scale(${baseScale})`,
+                                                opacity: baseOpacity
                                             }}
+                                            onMouseEnter={() => setIsPaused(true)}
+                                            onMouseLeave={() => setIsPaused(false)}
                                         >
-                                            <div className="p-3 bg-black rounded-lg shadow-md mb-2">
-                                                <Icon className={`text-5xl ${tech.color}`} />
+                                            <div className={`relative p-4 ${tech.bgLight} ${tech.bgDark} rounded-xl shadow-lg mb-3 transition-all duration-300 group-hover:scale-125 group-hover:shadow-2xl group-hover:ring-2 group-hover:ring-blue-500/50 group-hover:z-10`}>
+                                                <Icon className={`text-6xl ${tech.color} transition-all duration-300`} />
                                             </div>
-                                            <span className="text-xs font-medium text-muted-foreground text-center whitespace-nowrap">
+                                            <span className="text-sm font-semibold text-foreground text-center whitespace-nowrap transition-all duration-300 group-hover:scale-110 group-hover:text-blue-600 dark:group-hover:text-blue-400">
                                                 {tech.name}
                                             </span>
                                         </div>
@@ -636,11 +651,16 @@ export default function Projects({
 
                         {/* Progress Dots */}
                         <div className="flex justify-center gap-2 mt-6">
-                            {technologies.slice(0, 7).map((_, idx) => (
-                                <div
+                            {technologies.map((_, idx) => (
+                                <button
                                     key={idx}
-                                    className={`h-2 rounded-full transition-all duration-300 ${idx === currentIndex % 7 ? 'w-8 bg-blue-600' : 'w-2 bg-gray-300 dark:bg-gray-600'
-                                        }`}
+                                    onClick={() => setCurrentIndex(idx)}
+                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                        idx === currentIndex
+                                            ? 'bg-blue-600 w-8'
+                                            : 'bg-gray-300 dark:bg-gray-600 hover:bg-blue-400 dark:hover:bg-blue-500'
+                                    }`}
+                                    aria-label={`Go to ${technologies[idx].name}`}
                                 />
                             ))}
                         </div>

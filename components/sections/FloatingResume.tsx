@@ -17,7 +17,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const [size, setSize] = useState({ width: 700, height: 850 });
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const resumePath = '/Evans-Minot-Wood-Resume.pdf';
+  const resumePath = '/resume/Evans-Minot-Wood-Resume.pdf';
 
   const dragStart = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
   const resizeStart = useRef({ x: 0, y: 0, startWidth: 0, startHeight: 0 });

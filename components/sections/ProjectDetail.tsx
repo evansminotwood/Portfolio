@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FaArrowLeft, FaGithub, FaExternalLinkAlt, FaCalendarAlt, FaUsers, FaLightbulb, FaCog } from "react-icons/fa";
+import { FaArrowLeft, FaGithub, FaExternalLinkAlt, FaCalendarAlt, FaUsers, FaLightbulb, FaCog, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 
 interface ProjectDetailProps {
@@ -21,6 +22,8 @@ interface ProjectDetailProps {
         features: Array<{
             title: string;
             description: string;
+            image?: string;
+            video?: string;
         }>;
         technicalHighlights: string[];
         technologies: string[];
@@ -30,14 +33,49 @@ interface ProjectDetailProps {
         };
         outcomes?: string[];
         lessonsLearned?: string[];
+        media?: Array<{
+            type: 'image' | 'video';
+            src: string;
+            alt?: string;
+            caption?: string;
+        }>;
     };
     onBack: () => void;
 }
 
 export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
     const Icon = project.icon;
+    const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
     return (
+        <>
+        {/* Zoomed Image Modal */}
+        {zoomedImage && (
+            <div
+                className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+                onClick={() => setZoomedImage(null)}
+            >
+                <button
+                    onClick={() => setZoomedImage(null)}
+                    className="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-[101]"
+                    aria-label="Close zoom"
+                >
+                    <FaTimes className="text-3xl" />
+                </button>
+                <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center">
+                    <Image
+                        src={zoomedImage}
+                        alt="Zoomed view"
+                        width={1920}
+                        height={1080}
+                        className="max-w-full max-h-full w-auto h-auto object-contain"
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                </div>
+            </div>
+        )}
+
+        {/* Main Content */}
         <div className="min-h-screen bg-background py-12 px-4 pt-24">
             <div className="max-w-4xl mx-auto">
                 {/* Back Button */}
@@ -106,7 +144,10 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
 
                 {/* Cover Image (if exists) */}
                 {project.coverImage && (
-                    <Card className="overflow-hidden mb-8">
+                    <div
+                        className="mb-8 cursor-zoom-in hover:opacity-90 transition-opacity rounded-lg overflow-hidden"
+                        onClick={() => setZoomedImage(project.coverImage || null)}
+                    >
                         <Image
                             src={project.coverImage}
                             alt={project.title}
@@ -114,7 +155,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                             height={600}
                             className="w-full h-auto"
                         />
-                    </Card>
+                    </div>
                 )}
 
                 {/* Overview */}
@@ -164,9 +205,35 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                                     <h3 className="text-xl font-semibold text-foreground mb-2">
                                         {feature.title}
                                     </h3>
-                                    <p className="text-muted-foreground leading-relaxed">
+                                    <p className="text-muted-foreground leading-relaxed mb-4">
                                         {feature.description}
                                     </p>
+                                    {feature.video && (
+                                        <div className="mt-4 rounded-lg overflow-hidden">
+                                            <video
+                                                src={feature.video}
+                                                controls
+                                                className="w-full h-auto"
+                                                preload="metadata"
+                                            >
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        </div>
+                                    )}
+                                    {feature.image && !feature.video && (
+                                        <div
+                                            className="mt-4 rounded-lg overflow-hidden cursor-zoom-in hover:opacity-90 transition-opacity"
+                                            onClick={() => setZoomedImage(feature.image || null)}
+                                        >
+                                            <Image
+                                                src={feature.image}
+                                                alt={feature.title}
+                                                width={800}
+                                                height={450}
+                                                className="w-full h-auto"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -204,6 +271,49 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                         </div>
                     </CardContent>
                 </Card>
+
+                {/* Media Gallery */}
+                {project.media && project.media.length > 0 && (
+                    <Card className="mb-8">
+                        <CardContent className="p-8">
+                            <h2 className="text-3xl font-bold text-foreground mb-6">Media</h2>
+                            <div className="space-y-6">
+                                {project.media.map((item, idx) => (
+                                    <div key={idx} className="rounded-lg overflow-hidden">
+                                        {item.type === 'video' ? (
+                                            <video
+                                                src={item.src}
+                                                controls
+                                                className="w-full h-auto"
+                                                preload="metadata"
+                                            >
+                                                Your browser does not support the video tag.
+                                            </video>
+                                        ) : (
+                                            <div
+                                                className="cursor-zoom-in hover:opacity-90 transition-opacity"
+                                                onClick={() => setZoomedImage(item.src)}
+                                            >
+                                                <Image
+                                                    src={item.src}
+                                                    alt={item.alt || `Media ${idx + 1}`}
+                                                    width={1200}
+                                                    height={675}
+                                                    className="w-full h-auto"
+                                                />
+                                            </div>
+                                        )}
+                                        {item.caption && (
+                                            <p className="text-sm text-muted-foreground mt-2 text-center italic">
+                                                {item.caption}
+                                            </p>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                )}
 
                 {/* Outcomes */}
                 {project.outcomes && project.outcomes.length > 0 && (
@@ -252,5 +362,6 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
