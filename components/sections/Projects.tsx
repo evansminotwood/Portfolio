@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FaCode, FaGithub, FaExternalLinkAlt, FaLaptopCode, FaMusic, FaMountain, FaArrowRight, FaLinkedin, FaCamera, FaEdit, FaGlobe } from "react-icons/fa";
-import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSpotify, SiNextdotjs, SiNodedotjs, SiMysql, SiTailwindcss, SiTypescript, SiHtml5, SiCss3, SiGit, SiExpress, SiC, SiGo, SiRust, SiNumpy, SiScikitlearn, SiPandas, SiGooglechrome } from "react-icons/si";
+import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSpotify, SiNextdotjs, SiNodedotjs, SiMysql, SiTailwindcss, SiTypescript, SiHtml5, SiCss3, SiGit, SiC, SiGo, SiRust, SiNumpy, SiScikitlearn, SiPandas, SiGooglechrome, SiPostgresql, SiDocker, SiFastapi, SiPytorch } from "react-icons/si";
 
 // Import the ProjectDetail component
 import ProjectDetail from "./ProjectDetail";
@@ -133,6 +133,137 @@ export default function Projects({
                 "Intermediate representations are crucial for separation of concerns between analysis and generation",
                 "Optimization is a balancing act between compilation time and runtime performance",
                 "Understanding assembly deepened my appreciation for what high-level languages abstract away"
+            ]
+        },
+        aureus: {
+            id: "aureus",
+            title: "Aureus",
+            subtitle: "AI-Powered Coin Portfolio Manager with PCGS Integration",
+            description: "A production-ready, cloud-native platform for managing coin collections featuring automated AI-based identification, professional coin grading integration (PCGS API), real-time metal composition analysis, melt value calculations, and comprehensive portfolio analytics.",
+            icon: SiGo,
+            gradient: "from-yellow-500 via-amber-500 to-orange-600",
+            tags: ["Full Stack", "Machine Learning", "Computer Vision", "FinTech", "API Integration"],
+            techIcons: [
+                SiGo,
+                SiNextdotjs,
+                SiPostgresql,
+                SiDocker,
+                SiPython,
+                SiFastapi,
+                SiPytorch
+            ],
+            links: {
+                live: "",
+                github: "https://github.com/evansminotwood/Aureus"
+            },
+            date: "2025",
+            team: "Personal Project",
+            overview: "Aureus is a comprehensive, distributed coin portfolio management platform integrating multiple data sources and AI models. It combines a high-performance Go backend, modern Next.js frontend, and dedicated ML microservice for image analysis. The platform features PCGS API integration for professional grading data, automated metal composition tracking with spot price integration, historical price snapshots, and intelligent auto-population workflows that streamline data entry while maintaining data integrity.",
+            problem: "Coin collectors face fragmented workflows: spreadsheets for tracking, manual PCGS lookups for grading data, separate calculations for metal content and melt values, and limited tools for image-based identification. Professional platforms are expensive and lack ML capabilities, while free tools don't integrate multiple data sources or provide comprehensive portfolio analytics.",
+            solution: "Built a production-grade microservices architecture that unifies coin identification, professional grading data, metal composition analysis, and portfolio management. The system intelligently combines AI-powered image analysis (CLIP + OCR), real-time PCGS API integration, automated metal composition lookups, and spot price tracking. Smart auto-population features reduce manual data entry while allowing user override, and comprehensive error handling ensures graceful degradation when external APIs are unavailable.",
+            features: [
+                {
+                    title: "AI-Powered Multi-Coin Detection & Identification",
+                    description: "Upload images containing multiple coins and receive automated identification using CLIP (ViT-B/32) zero-shot classification combined with Hough Circle Transform detection. The system extracts coin type, year (via multi-method OCR), denomination, and provides confidence scores for each detection."
+                },
+                {
+                    title: "PCGS API Integration & Auto-Population",
+                    description: "Enter a PCGS certification number to automatically populate coin details including grade, year, mint mark, denomination, and current market value from the Professional Coin Grading Service API. Features intelligent error handling with user-friendly feedback for invalid cert numbers."
+                },
+                {
+                    title: "Automated Metal Composition & Melt Value",
+                    description: "Automatically determine metal composition (gold, silver, copper, nickel percentages) based on coin type and year. Calculate real-time melt values using current spot prices with year-specific composition accuracy (e.g., pre-1965 vs post-1965 silver content)."
+                },
+                {
+                    title: "Historical Price Tracking & Snapshots",
+                    description: "Track coin values over time with price history snapshots. Store both numismatic (collector) and melt values, enabling portfolio performance analysis and trend visualization."
+                },
+                {
+                    title: "Smart Data Entry Workflows",
+                    description: "Intelligent auto-population reduces manual data entry: PCGS cert numbers fill grade/year/value, coin types auto-fill metal composition, and ML detection pre-populates multiple fields. Users maintain full control with override capabilities and clear validation feedback."
+                },
+                {
+                    title: "Portfolio & Collection Management",
+                    description: "Create unlimited portfolios with full CRUD operations. Track purchase prices separately from current values, add detailed notes, manage quantities, and view aggregate statistics including total value, cost basis, and gains/losses."
+                },
+                {
+                    title: "Comprehensive RESTful API",
+                    description: "Well-documented REST API with endpoints for authentication, portfolios, coins, PCGS integration, metal prices, and price history. Features consistent error handling, JWT authentication, and modular handler architecture."
+                },
+                {
+                    title: "Secure Authentication & Storage",
+                    description: "JWT-based authentication with bcrypt password hashing protects user data. MinIO provides S3-compatible object storage for coin images with automatic thumbnail generation."
+                }
+            ],
+            imageAnalysisService: {
+                overview: "A production-ready FastAPI microservice handling all computer vision and ML tasks. Runs entirely self-hosted with no external API dependencies, supporting both single-coin identification and multi-coin batch processing from a single image.",
+                capabilities: [
+                    "Zero-shot coin classification using OpenAI CLIP (ViT-B/32) - no training data required",
+                    "Multi-coin detection using Hough Circle Transform with optimized parameters (dp=1.5, minDist=100px)",
+                    "Advanced OCR with 5 preprocessing methods: binary threshold, inverted threshold, CLAHE enhancement, adaptive threshold, and 3x upscaling",
+                    "Regex-based year extraction (1700-2199) with position-based validation",
+                    "Confidence scoring with per-coin accuracy metrics",
+                    "Metal composition integration and melt value calculations",
+                    "Batch processing: analyze multiple coins in one request with individual region extraction"
+                ],
+                performance: {
+                    cpu: "Single coin ~100-500ms on Apple M4 Pro (model cached)",
+                    multiCoin: "3-5 coins ~500ms-2s including detection",
+                    memory: "Base: 500MB, With CLIP loaded: ~1.5GB, Peak: ~2GB",
+                    accuracy: "85-95% on clear images, handles worn coins and varied lighting"
+                },
+                endpoints: {
+                    identify: "POST /identify - Single coin identification with detailed metadata",
+                    analyze: "POST /analyze - Multi-coin detection and batch analysis",
+                    health: "GET /health - Service health check"
+                }
+            },
+            technicalHighlights: [
+                "Go (Gin) REST API with clean separation: handlers, middleware, models, services organized in internal packages",
+                "PCGS API client with proper error handling, JWT token auth, and graceful degradation",
+                "Next.js 14 App Router with TypeScript, Tailwind CSS, shadcn/ui, and React Hook Form",
+                "Python FastAPI ML microservice using CLIP (ViT-B/32), OpenCV, and Tesseract OCR",
+                "Zero-shot vision-language classification - no labeled training data required",
+                "PostgreSQL with GORM ORM featuring auto-migrations, UUID primary keys, and foreign key relationships",
+                "Metal composition database with year-specific data (e.g., 1964 vs 1965 silver content changes)",
+                "Price history snapshots with timestamp tracking for portfolio performance analysis",
+                "Redis caching layer for frequently accessed data and API response caching",
+                "Docker Compose orchestration managing 4 services: backend, database, cache, ML service",
+                "MinIO S3-compatible object storage with automatic image and thumbnail handling",
+                "Comprehensive API documentation with detailed README files for each service",
+                "Smart auto-population workflows with user override capabilities and clear validation feedback"
+            ],
+            technologies: [
+                "Go",
+                "Next.js",
+                "TypeScript",
+                "Python",
+                "FastAPI",
+                "PyTorch",
+                "CLIP",
+                "OpenCV",
+                "Tesseract OCR",
+                "PostgreSQL",
+                "Redis",
+                "Docker",
+                "MinIO"
+            ],
+            outcomes: [
+                "Built a production-ready distributed system integrating 3 languages (Go, TypeScript, Python) and 4 distinct services",
+                "Integrated multiple external APIs (PCGS, metal spot prices) with comprehensive error handling and fallback strategies",
+                "Implemented a real-world zero-shot ML pipeline achieving 85-95% accuracy without custom training data",
+                "Created intelligent auto-population workflows that reduced data entry time by ~70% while maintaining data quality",
+                "Designed extensible architecture supporting future enhancements: more grading services, additional coin types, fine-tuned models",
+                "Delivered comprehensive documentation (3 detailed README files) enabling easy onboarding and maintenance"
+            ],
+            lessonsLearned: [
+                "Zero-shot models (CLIP) are exceptionally powerful when labeled data is scarce or expensive to obtain",
+                "Hybrid ML systems (CLIP + OCR) significantly outperform single-model approaches on real-world, noisy inputs",
+                "External API integration requires thoughtful error handling - graceful degradation is crucial for user experience",
+                "Smart auto-population must balance convenience with user control - always allow manual override",
+                "Clear service boundaries and well-documented APIs make distributed systems manageable and scalable",
+                "Comprehensive documentation early in development pays dividends in maintenance and feature additions",
+                "Domain-specific data (metal composition by year, PCGS grading standards) adds substantial value beyond basic CRUD"
             ]
         },
         advent2025: {
@@ -374,9 +505,10 @@ export default function Projects({
     };
 
     const projects = [
-        projectsData.shopcomp,
+        projectsData.aureus,
         projectsData.compiler,
         projectsData.advent2025,
+        projectsData.shopcomp,
         projectsData.deadheadsShortcut,
         projectsData.spotify,
         projectsData.mtwash
