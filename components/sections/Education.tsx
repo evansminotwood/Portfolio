@@ -155,7 +155,7 @@ export default function Education() {
                                     {educationData.coursework.map((course, idx) => (
                                         <div
                                             key={idx}
-                                            className="p-4 bg-slate-50 dark:bg-slate-900/30 rounded-lg border border-slate-200 dark:border-slate-700 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all"
+                                            className="p-4 bg-slate-50 dark:bg-slate-900/30 rounded-lg border border-slate-200 dark:border-slate-700"
                                         >
                                             <p className="text-sm font-medium text-foreground">{course}</p>
                                         </div>
