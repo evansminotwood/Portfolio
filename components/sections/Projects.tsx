@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FaCode, FaGithub, FaExternalLinkAlt, FaLaptopCode, FaMusic, FaMountain, FaArrowRight, FaLinkedin, FaCamera, FaEdit, FaGlobe } from "react-icons/fa";
-import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSpotify, SiNextdotjs, SiNodedotjs, SiMysql, SiTailwindcss, SiTypescript, SiHtml5, SiCss3, SiGit, SiC, SiGo, SiRust, SiNumpy, SiScikitlearn, SiPandas, SiGooglechrome, SiPostgresql, SiDocker, SiFastapi, SiPytorch } from "react-icons/si";
+import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSoundcloud, SiNextdotjs, SiNodedotjs, SiMysql, SiTailwindcss, SiTypescript, SiHtml5, SiCss3, SiGit, SiC, SiGo, SiRust, SiNumpy, SiScikitlearn, SiPandas, SiGooglechrome, SiPostgresql, SiDocker, SiFastapi, SiPytorch, SiPrisma } from "react-icons/si";
 
 // Import the ProjectDetail component
 import ProjectDetail from "./ProjectDetail";
@@ -381,62 +381,72 @@ export default function Projects({
                 "Content scripts must be resilient to varied page structures and loading patterns"
             ]
         },
-        spotify: {
-            id: "spotify",
-            title: "Spotify Song Requester",
-            subtitle: "DJ Playlist Management Tool",
-            description: "Next.js application enabling users to search and request songs for DJ playlists with Spotify API integration",
+        sonus: {
+            id: "sonus",
+            title: "Sonus",
+            subtitle: "Collaborative Music Voting Platform",
+            description: "A collaborative music voting platform that lets event hosts create interactive playlists where guests can request and vote on songs, powered by SoundCloud integration.",
             icon: FaMusic,
-            gradient: "from-emerald-500 via-green-500 to-teal-600",
-            tags: ["Next.js", "Spotify API", "TypeScript", "React"],
-            techIcons: [SiNextdotjs, SiSpotify, SiReact],
+            gradient: "from-orange-500 via-amber-500 to-yellow-500",
+            tags: ["Next.js", "SoundCloud API", "TypeScript", "PostgreSQL", "Prisma"],
+            techIcons: [SiNextdotjs, SiSoundcloud, SiPostgresql, SiPrisma],
             links: {
                 live: null,
-                github: null
+                github: "https://github.com/evansminotwood/sonus"
             },
-            date: "Summer 2024",
-            team: "Individual Project",
-            overview: "A web application designed to streamline the song request process at live DJ events. Users can search Spotify's vast music library and submit requests to a centralized playlist, while DJs get a curated list to review in their DJ software.",
-            problem: "At live events, managing song requests is chaotic. DJs receive requests verbally or through scattered messages, making it hard to track what's been requested. Meanwhile, guests struggle to remember song titles or communicate their requests clearly.",
-            solution: "By integrating Spotify's search API, users can easily find songs with autocomplete suggestions. Requests are collected in a centralized playlist that DJs can review in Rekordbox, creating an organized workflow that improves both the guest and DJ experience.",
+            date: "2025",
+            team: "Personal Project",
+            overview: "Sonus is a full-stack collaborative music platform designed for live events. Event hosts (DJs) create events that automatically generate SoundCloud playlists, while guests join via simple 6-character codes or QR codes to search, request, and vote on songs. The platform features real-time vote-based queue ordering, DJ mode with auto-advance playback, and intelligent duplicate prevention.",
+            problem: "At live events, managing song requests is chaotic. DJs receive requests verbally or through scattered messages, making it hard to track what's been requested and gauge popularity. Meanwhile, guests struggle to communicate their requests clearly, and there's no democratic way to surface the most-wanted songs.",
+            solution: "Built a full-stack platform where guests can easily search SoundCloud's library, add songs, and vote on requests. Votes determine queue order, giving the crowd control over what plays next. DJs get an integrated player with auto-advance that respects the vote rankings, while the SoundCloud playlist automatically syncs to match the current order.",
             features: [
                 {
-                    title: "Intelligent Song Search",
-                    description: "Real-time search powered by Spotify API with autocomplete suggestions, helping users find songs even with partial titles or artist names."
+                    title: "Event Creation & QR Codes",
+                    description: "Hosts create events with custom names, descriptions, and optional time windows. Each event gets a unique 6-character code and shareable QR code for easy guest access."
                 },
                 {
-                    title: "Centralized Request Queue",
-                    description: "All requests flow into a single playlist that DJs can access, preventing duplicate requests and providing an organized queue."
+                    title: "Vote-Based Queue System",
+                    description: "Guests upvote their favorite songs to move them up the queue. Songs are automatically sorted by vote count, ensuring the crowd's preferences drive the playlist."
                 },
                 {
-                    title: "Rekordbox Integration",
-                    description: "DJs can import the request playlist directly into Rekordbox for seamless workflow during live performances."
+                    title: "DJ Mode with Auto-Advance",
+                    description: "Integrated SoundCloud player shows songs in vote order. Songs automatically play in sequence when one finishes, and played songs are tracked to prevent re-adding."
                 },
                 {
-                    title: "Request History",
-                    description: "Maintains a record of all requests from past events, allowing DJs to analyze popular songs and build better setlists for future events."
+                    title: "SoundCloud Playlist Sync",
+                    description: "Each event creates a linked SoundCloud playlist that automatically updates to match the current vote rankings, keeping the DJ's library in sync."
+                },
+                {
+                    title: "Guest-Friendly Access",
+                    description: "No account required for guests. Join with a simple code, search SoundCloud's library, add songs, and vote—all from a mobile-optimized interface."
+                },
+                {
+                    title: "Smart Duplicate Prevention",
+                    description: "Songs cannot be added twice to the same event. Once a song is played, it's tracked and cannot be re-added, keeping the queue fresh."
                 }
             ],
             technicalHighlights: [
-                "Next.js server-side rendering for fast initial page loads and SEO optimization",
-                "OAuth 2.0 authentication flow with Spotify for secure API access",
-                "React hooks for managing search state and debouncing API calls to reduce requests",
-                "TypeScript for type safety and better developer experience",
-                "Responsive design that works seamlessly on mobile devices at events",
-                "Real-time updates using polling to keep the request list current"
+                "Next.js 16 App Router with TypeScript for modern full-stack development",
+                "PostgreSQL database with Prisma ORM for type-safe data access",
+                "NextAuth.js with SoundCloud OAuth for secure host authentication",
+                "SoundCloud API integration for search, playlist creation, and widget playback",
+                "Real-time updates via 5-second polling for live vote synchronization",
+                "IP-hash based voting system allowing guest participation without accounts",
+                "Tailwind CSS 4 with Radix UI components for responsive, accessible design",
+                "Event status management (Scheduled, Active, Ended) with time-based controls"
             ],
-            technologies: ["Next.js", "React", "TypeScript", "Spotify Web API", "OAuth 2.0", "Tailwind CSS", "Node.js"],
+            technologies: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth.js", "SoundCloud API", "Tailwind CSS", "Radix UI"],
             outcomes: [
-                "Successfully deployed at multiple live DJ events with 50+ concurrent users",
-                "Reduced DJ workload by organizing requests in advance of the event",
-                "Improved guest satisfaction by providing an easy way to make song requests",
-                "Created a valuable dataset of song preferences for future event planning"
+                "Built a complete event-based music request system with democratic voting",
+                "Implemented seamless SoundCloud integration for search, playback, and playlist management",
+                "Created frictionless guest experience requiring no account creation",
+                "Designed scalable architecture with Docker support for easy deployment"
             ],
             lessonsLearned: [
-                "API rate limiting requires careful management - debouncing and caching are essential",
-                "Real-time features need to balance freshness with server load and costs",
-                "User experience design is critical for apps used in noisy, distracting environments",
-                "OAuth flows can be tricky - thorough testing of authentication edge cases is important"
+                "OAuth integration with third-party music services requires careful token management",
+                "Polling-based real-time updates balance simplicity with acceptable latency for this use case",
+                "IP-hash voting provides reasonable guest identification without authentication friction",
+                "Event-based time windows add complexity but provide hosts with important control"
             ]
         },
         mtwash: {
@@ -507,11 +517,11 @@ export default function Projects({
 
     const projects = [
         projectsData.aureus,
+        projectsData.sonus,
         projectsData.compiler,
         projectsData.advent2025,
         projectsData.shopcomp,
         projectsData.deadheadsShortcut,
-        projectsData.spotify,
         projectsData.mtwash
     ];
 
