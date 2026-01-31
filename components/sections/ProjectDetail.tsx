@@ -89,8 +89,8 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                 </Button>
 
                 {/* Hero Section */}
-                <Card className="overflow-hidden shadow-xl mb-8">
-                    <div className={`bg-gradient-to-r ${project.gradient} p-8 md:p-12 text-white relative`}>
+                <Card className="overflow-hidden shadow-xl mb-8 border-0 p-0">
+                    <div className={`bg-gradient-to-r ${project.gradient} p-8 md:p-12 text-white relative rounded-t-xl`}>
                         <div className="absolute top-4 right-4 md:top-6 md:right-6 p-3 md:p-4 bg-white/20 rounded-xl backdrop-blur-sm">
                             <Icon className="text-3xl md:text-5xl" />
                         </div>

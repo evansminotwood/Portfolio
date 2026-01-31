@@ -7,7 +7,7 @@ export default function Footer() {
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                 {/* Left side: copyright */}
                 <p className="text-sm text-muted-foreground">
-                    &copy; 2025 Evans Minot Wood. All rights reserved.
+                    &copy; 2026 Evans Minot Wood. All rights reserved.
                 </p>
 
                 {/* Right side: social links */}

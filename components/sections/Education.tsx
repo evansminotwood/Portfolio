@@ -19,22 +19,14 @@ export default function Education() {
                 title: "Computer Science",
                 subtitle: "Bachelor of Science",
                 icon: FaLaptopCode,
-                description: "Focusing on software engineering, algorithms, and system design",
-                gradient: "from-blue-600 to-indigo-600",
-                borderColor: "border-blue-300 dark:border-blue-700",
-                bgColor: "bg-blue-50/50 dark:bg-blue-900/10",
-                iconColor: "text-blue-600 dark:text-blue-400"
+                description: "Focusing on software engineering, algorithms, and system design"
             },
             {
                 id: "ds",
                 title: "Data Science",
                 subtitle: "Bachelor of Science",
                 icon: SiPython,
-                description: "Specializing in machine learning, statistical analysis, and data visualization",
-                gradient: "from-emerald-600 to-teal-600",
-                borderColor: "border-emerald-300 dark:border-emerald-700",
-                bgColor: "bg-emerald-50/50 dark:bg-emerald-900/10",
-                iconColor: "text-emerald-600 dark:text-emerald-400"
+                description: "Specializing in machine learning, statistical analysis, and data visualization"
             }
         ],
         coursework: [
@@ -55,8 +47,8 @@ export default function Education() {
                 subtitle: "2023 – Present (5x Recipient)",
                 description: "Recognized for outstanding academic performance",
                 gradient: "from-red-700 to-slate-500",
-                borderColor: "border-red-300 dark:border-red-700",
-                bgColor: "bg-red-50/50 dark:bg-red-900/10"
+                borderColor: "border-amber-400 dark:border-amber-500",
+                bgColor: ""
             },
             {
                 id: "omega",
@@ -64,8 +56,8 @@ export default function Education() {
                 subtitle: "2025 – Present",
                 description: "Greek life leadership honor society",
                 gradient: "from-amber-400 to-yellow-600",
-                borderColor: "border-amber-300 dark:border-amber-700",
-                bgColor: "bg-amber-50/50 dark:bg-amber-900/10"
+                borderColor: "border-amber-400 dark:border-amber-500",
+                bgColor: ""
             },
             {
                 id: "ame",
@@ -73,8 +65,17 @@ export default function Education() {
                 subtitle: "Phi Sigma Kappa",
                 description: "Excellence as New Member Educator",
                 gradient: "from-red-600 to-rose-600",
-                borderColor: "border-red-300 dark:border-red-700",
-                bgColor: "bg-red-50/50 dark:bg-red-900/10"
+                borderColor: "border-amber-400 dark:border-amber-500",
+                bgColor: ""
+            },
+            {
+                id: "upe",
+                title: "Upsilon Pi Epsilon",
+                subtitle: "Member",
+                description: "International honor society for computing and information disciplines",
+                gradient: "from-rose-900 to-rose-700",
+                borderColor: "border-amber-400 dark:border-amber-500",
+                bgColor: ""
             }
         ]
     };
@@ -92,10 +93,10 @@ export default function Education() {
                 </div>
 
                 {/* Main Education Card */}
-                <Card className="overflow-hidden shadow-xl">
+                <Card className="overflow-hidden shadow-xl border-0 p-0">
                     <CardContent className="p-0">
-                        {/* Header Banner - WPI Colors */}
-                        <div className={`bg-gradient-to-r ${educationData.school.gradient} p-8 text-white`}>
+                        {/* Header Banner */}
+                        <div className="bg-blue-600 p-8 text-white rounded-t-xl">
                             <div className="flex items-start gap-6">
                                 <div className="p-4 bg-white/20 rounded-xl backdrop-blur-sm">
                                     <FaGraduationCap className="text-5xl" />
@@ -127,10 +128,10 @@ export default function Education() {
                                         return (
                                             <div
                                                 key={degree.id}
-                                                className={`p-6 border-2 ${degree.borderColor} rounded-lg ${degree.bgColor}`}
+                                                className="p-6 border-2 border-blue-300 dark:border-blue-700 rounded-lg"
                                             >
                                                 <div className="flex items-center gap-3 mb-3">
-                                                    <Icon className={`text-3xl ${degree.iconColor}`} />
+                                                    <Icon className="text-3xl text-blue-600 dark:text-blue-400" />
                                                     <div>
                                                         <h5 className="text-xl font-semibold text-foreground">{degree.title}</h5>
                                                         <p className="text-sm text-muted-foreground">{degree.subtitle}</p>
@@ -169,7 +170,7 @@ export default function Education() {
                                     <FaAward className="text-2xl text-blue-600" />
                                     <h4 className="text-2xl font-semibold text-foreground">Honors & Recognition</h4>
                                 </div>
-                                <div className="grid md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {educationData.honors.map((honor) => (
                                         <div
                                             key={honor.id}
@@ -184,7 +185,7 @@ export default function Education() {
                             </div>
 
                             {/* Academic Focus */}
-                            <div className="mt-10 p-6 bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900/30 dark:to-blue-900/20 rounded-lg border-l-4 border-blue-600">
+                            <div className="mt-10 p-6 bg-muted/50 rounded-lg border-l-4 border-blue-600">
                                 <p className="text-muted-foreground mb-3">
                                     <strong className="text-foreground">The Journey:</strong> As a child, I dreamt of building a computer that could think and reason for itself. That dream sparked a lifelong passion for artificial intelligence and problem-solving that continues to drive my academic pursuits today.
                                 </p>

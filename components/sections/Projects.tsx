@@ -430,7 +430,7 @@ export default function Projects({
                 "PostgreSQL database with Prisma ORM for type-safe data access",
                 "NextAuth.js with SoundCloud OAuth for secure host authentication",
                 "SoundCloud API integration for search, playlist creation, and widget playback",
-                "Real-time updates via 5-second polling for live vote synchronization",
+                "Real-time updates via WebSockets for instant vote synchronization",
                 "IP-hash based voting system allowing guest participation without accounts",
                 "Tailwind CSS 4 with Radix UI components for responsive, accessible design",
                 "Event status management (Scheduled, Active, Ended) with time-based controls"
@@ -444,7 +444,7 @@ export default function Projects({
             ],
             lessonsLearned: [
                 "OAuth integration with third-party music services requires careful token management",
-                "Polling-based real-time updates balance simplicity with acceptable latency for this use case",
+                "Switching from polling to WebSockets dramatically improved real-time responsiveness—polling's delays felt sluggish for live events where instant feedback matters",
                 "IP-hash voting provides reasonable guest identification without authentication friction",
                 "Event-based time windows add complexity but provide hosts with important control"
             ]
@@ -616,7 +616,7 @@ export default function Projects({
 
                 {/* Technologies Carousel */}
                 <div className="mb-16 overflow-hidden">
-                    <div className="relative bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-blue-950/20 rounded-xl p-8 border border-blue-200 dark:border-blue-800">
+                    <div className="relative bg-muted/50 rounded-xl p-8 border border-border">
                         <h3 className="text-center text-xl font-semibold text-foreground mb-6">Technologies I Work With</h3>
 
                         {/* Carousel Track */}
@@ -683,10 +683,10 @@ export default function Projects({
                         const Icon = project.icon;
 
                         return (
-                            <Card key={project.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                            <Card key={project.id} className="overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col h-full border-0 p-0 cursor-pointer">
                                 <CardContent className="p-0 flex flex-col h-full">
                                     {/* Header */}
-                                    <div className={`bg-gradient-to-r ${project.gradient} p-6 text-white`}>
+                                    <div className={`bg-gradient-to-r ${project.gradient} p-6 text-white rounded-t-xl`}>
                                         <div className="flex items-start justify-between mb-4">
                                             <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
                                                 <Icon className="text-3xl" />
@@ -723,7 +723,7 @@ export default function Projects({
                                     </div>
 
                                     {/* Tech Stack Icons */}
-                                    <div className="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-b">
+                                    <div className="px-6 py-4 bg-muted/50 border-b">
                                         <div className="flex gap-3 items-center">
                                             {project.techIcons.map((TechIcon, techIdx) => (
                                                 <TechIcon key={techIdx} className="text-2xl text-muted-foreground" />
@@ -741,7 +741,7 @@ export default function Projects({
                                     {/* Read More Button */}
                                     <div className="px-6 pb-6">
                                         <Button
-                                            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                                            className="w-full bg-blue-600 hover:bg-blue-700"
                                             onClick={() => handleProjectSelect(project.id)}
                                         >
                                             Read Full Story
@@ -770,12 +770,12 @@ export default function Projects({
 
                 {/* Call to Action */}
                 <div className="mt-16 text-center">
-                    <Card className="p-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-2 border-blue-200 dark:border-blue-800">
+                    <Card className="p-8 bg-muted/50 border-2 border-border">
                         <p className="text-lg text-muted-foreground mb-4">
                             Want to see more of my work?
                         </p>
                         <div className="flex gap-4 justify-center flex-wrap">
-                            <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
                                 <a href="https://github.com/evansminotwood" target="_blank" rel="noopener noreferrer">
                                     <FaGithub className="mr-2" />
                                     View GitHub Profile

@@ -60,17 +60,17 @@ export default function About() {
                             <div className="relative">
                                 {/* Animated glow effect */}
                                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 opacity-75 blur-2xl animate-pulse"></div>
-                                
+
                                 {/* Secondary glow layer for depth */}
                                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 opacity-50 blur-3xl"></div>
-                                
+
                                 {/* Image */}
                                 <img
                                     src={imgSrc}
                                     alt={aboutData.name}
                                     width={280}
                                     height={280}
-                                    className="relative rounded-full border-4 border-blue-600 shadow-2xl object-cover z-10"
+                                    className="relative rounded-full  shadow-2xl object-cover z-10"
                                 />
                             </div>
                         </div>

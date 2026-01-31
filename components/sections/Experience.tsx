@@ -13,11 +13,6 @@ export default function Experience() {
       location: "Worcester, MA",
       dates: "Summer 2024 & 2025",
       icon: FaUsers,
-      gradient: "from-red-700 via-red-600 to-slate-400",
-      iconBg: "bg-red-100 dark:bg-red-900/30",
-      iconColor: "text-red-700 dark:text-red-400",
-      border: "border-red-200 dark:border-red-800",
-      bulletBg: "bg-red-700",
       responsibilities: [
         "Ran two in-person, two-week STEM programs for high school students, guiding workshops and activities",
         "Mentored students in hands-on learning experiences and college preparation",
@@ -32,11 +27,6 @@ export default function Experience() {
       location: "Hudson, MA",
       dates: "Dec. 2020 – Jan. 2021",
       icon: FaCode,
-      gradient: "from-emerald-700 via-teal-600 to-amber-100",
-      iconBg: "bg-emerald-100 dark:bg-emerald-900/30",
-      iconColor: "text-emerald-700 dark:text-emerald-400",
-      border: "border-emerald-200 dark:border-emerald-800",
-      bulletBg: "bg-emerald-700",
       responsibilities: [
         "Redesigned corporate website using HTML, CSS, and JavaScript with a modern layout and color scheme",
         "Improved user experience and visual appeal through contemporary design principles",
@@ -51,11 +41,6 @@ export default function Experience() {
       location: "Worcester Polytechnic Institute",
       dates: "2023 – Present",
       icon: FaUsers,
-      gradient: "from-red-600 via-red-500 to-gray-300",
-      iconBg: "bg-red-100 dark:bg-red-900/30",
-      iconColor: "text-red-600 dark:text-red-400",
-      border: "border-red-200 dark:border-red-800",
-      bulletBg: "bg-red-600",
       isLeadership: true,
       responsibilities: [
         "Led chapter operations, organized large-scale events, and connected the chapter to the broader campus community via IFC",
@@ -90,10 +75,10 @@ export default function Experience() {
             const Icon = exp.icon;
 
             return (
-              <Card key={exp.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Card key={exp.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow border-0 p-0">
                 <CardContent className="p-0">
                   {/* Header */}
-                  <div className={`bg-gradient-to-r ${exp.gradient} p-6 text-white`}>
+                  <div className="bg-blue-600 p-6 text-white rounded-t-xl">
                     <div className="flex items-start gap-4">
                       <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm flex-shrink-0">
                         <Icon className="text-3xl" />
@@ -126,7 +111,7 @@ export default function Experience() {
                     <ul className="space-y-3">
                       {exp.responsibilities.map((resp, respIdx) => (
                         <li key={respIdx} className="flex gap-3">
-                          <div className={`mt-1.5 w-2 h-2 rounded-full ${exp.bulletBg} flex-shrink-0`}></div>
+                          <div className="mt-1.5 w-2 h-2 rounded-full bg-blue-600 flex-shrink-0"></div>
                           <p className="text-muted-foreground">{resp}</p>
                         </li>
                       ))}
@@ -139,9 +124,9 @@ export default function Experience() {
         </div>
 
         {/* Leadership Experience Callout */}
-        <Card className="mt-12 overflow-hidden shadow-lg">
+        <Card className="mt-12 overflow-hidden shadow-lg border-0 p-0">
           <CardContent className="p-0">
-            <div className={`bg-gradient-to-r ${leadershipExperience.gradient} p-6 text-white`}>
+            <div className="bg-blue-600 p-6 text-white rounded-t-xl">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm flex-shrink-0">
                   <FaUsers className="text-3xl" />
@@ -163,7 +148,7 @@ export default function Experience() {
               <ul className="space-y-3">
                 {leadershipExperience.responsibilities.map((resp, respIdx) => (
                   <li key={respIdx} className="flex gap-3">
-                    <div className={`mt-1.5 w-2 h-2 rounded-full ${leadershipExperience.bulletBg} flex-shrink-0`}></div>
+                    <div className="mt-1.5 w-2 h-2 rounded-full bg-blue-600 flex-shrink-0"></div>
                     <p className="text-muted-foreground">{resp}</p>
                   </li>
                 ))}
