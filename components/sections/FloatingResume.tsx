@@ -16,8 +16,14 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState({ width: 700, height: 850 });
   const [isInitialized, setIsInitialized] = useState(false);
+  const [resumePath, setResumePath] = useState('/resume/Evans-Minot-Wood-Resume.pdf');
 
-  const resumePath = '/resume/Evans-Minot-Wood-Resume.pdf';
+  // Set the correct resume path after hydration
+  useEffect(() => {
+    if (window.location.hostname === 'evansminotwood.com') {
+      setResumePath('https://evansminotwood.com/resume/Evans-Minot-Wood-Resume.pdf');
+    }
+  }, []);
 
   const dragStart = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
   const resizeStart = useRef({ x: 0, y: 0, startWidth: 0, startHeight: 0 });
