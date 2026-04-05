@@ -51,15 +51,6 @@ export default function Education() {
                 bgColor: ""
             },
             {
-                id: "omega",
-                title: "Order of Omega Honor Society",
-                subtitle: "2025 – Present",
-                description: "Greek life leadership honor society",
-                gradient: "from-amber-400 to-yellow-600",
-                borderColor: "border-amber-400 dark:border-amber-500",
-                bgColor: ""
-            },
-            {
                 id: "ame",
                 title: "Associate Member Education Award",
                 subtitle: "Phi Sigma Kappa",
@@ -69,10 +60,28 @@ export default function Education() {
                 bgColor: ""
             },
             {
+                id: "omega",
+                title: "Order of Omega Honor Society",
+                subtitle: "Vice President",
+                description: "Greek life leadership honor society",
+                gradient: "from-amber-400 to-yellow-600",
+                borderColor: "border-amber-400 dark:border-amber-500",
+                bgColor: ""
+            },
+            {
                 id: "upe",
                 title: "Upsilon Pi Epsilon",
                 subtitle: "Member",
                 description: "International honor society for computing and information disciplines",
+                gradient: "from-rose-900 to-rose-700",
+                borderColor: "border-amber-400 dark:border-amber-500",
+                bgColor: ""
+            },
+            {
+                id: "ODK",
+                title: "Omicron Delta Kappa",
+                subtitle: "Member",
+                description: "National leadership honor society recognizing achievement across all disciplines",
                 gradient: "from-rose-900 to-rose-700",
                 borderColor: "border-amber-400 dark:border-amber-500",
                 bgColor: ""
@@ -171,16 +180,19 @@ export default function Education() {
                                     <h4 className="text-2xl font-semibold text-foreground">Honors & Recognition</h4>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {educationData.honors.map((honor) => (
+                                    {educationData.honors.map((honor, index) => {
+                                        const isLoneLastItem = educationData.honors.length % 2 !== 0 && index === educationData.honors.length - 1;
+                                        return (
                                         <div
                                             key={honor.id}
-                                            className={`p-5 ${honor.bgColor} rounded-lg border-2 ${honor.borderColor} hover:shadow-lg transition-shadow`}
+                                            className={`p-5 ${honor.bgColor} rounded-lg border-2 ${honor.borderColor} hover:shadow-lg transition-shadow${isLoneLastItem ? " md:col-span-2 md:max-w-[50%] md:mx-auto md:w-full" : ""}`}
                                         >
                                             <h5 className="text-lg font-semibold text-foreground mb-1">{honor.title}</h5>
                                             <p className="text-sm text-muted-foreground mb-2">{honor.subtitle}</p>
                                             <p className="text-sm text-muted-foreground">{honor.description}</p>
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </div>
 
