@@ -391,7 +391,7 @@ export default function Projects({
             tags: ["Next.js", "SoundCloud API", "TypeScript", "PostgreSQL", "Prisma"],
             techIcons: [SiNextdotjs, SiSoundcloud, SiPostgresql, SiPrisma],
             links: {
-                live: null,
+                live: "https://sonus.evansminotwood.com",
                 github: "https://github.com/evansminotwood/sonus"
             },
             date: "2025",
