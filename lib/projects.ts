@@ -460,14 +460,14 @@ export const projectsData = {
         tags: ["ThingLink", "360° Photography", "Interactive Media", "Education"],
         techIcons: [FaCamera, FaEdit, FaGlobe],
         links: {
-            live: null,
+            live: "https://mountwashington.org/education/mount-washington-virtual-tour/",
             github: null
         },
         date: "Aug 2025 – Oct 2025",
         team: "Team of 4",
-        overview: "An immersive 360° virtual tour of Mount Washington's summit, developed in partnership with the Mount Washington Observatory using ThingLink's no-code platform. This educational experience allows visitors worldwide to explore the summit through interactive panoramic scenes with embedded multimedia hotspots.",
-        problem: "Mount Washington's summit experiences some of the world's most extreme weather conditions, making it physically inaccessible to many people. The Observatory needed a way to share their research, facilities, and the unique summit environment with students, educators, and weather enthusiasts who cannot visit in person.",
-        solution: "We leveraged ThingLink's interactive 360° tour platform to create an immersive educational experience. Using high-resolution 360° photography and ThingLink's drag-and-drop hotspot system, we built a self-paced virtual tour with embedded videos, audio narration, informational pop-ups, and seamless scene-to-scene navigation.",
+        overview: "An immersive 360° virtual tour of Mount Washington's summit, developed as a WPI student collaboration with the Mount Washington Observatory's education team. Delivered in just 9 weeks, the tour brings the Observatory and six partner groups — Mount Washington State Park, the Mt. Washington Auto Road, the Mount Washington Cog Railway, the Appalachian Mountain Club, the US Forest Service, and Townsquare Media — into a single digital experience for the first time, letting visitors worldwide explore the summit through interactive panoramic scenes with embedded multimedia hotspots.",
+        problem: "Mount Washington's summit experiences some of the world's most extreme weather on Earth, making it inaccessible to many due to weather, cost, or physical limitations. The Observatory needed to deliver consistent K-12 educational content about an environment most students have never experienced — while coordinating six stakeholder groups beyond the Observatory itself that had never been unified into one visitor experience.",
+        solution: "We spent 6 weeks on research and planning with the Observatory's Director of Education, then 3 weeks capturing 360° imagery, video, and atmospheric audio on-site at the summit. Using ThingLink's interactive tour platform, we built a self-paced experience with embedded videos, on-site audio, informational pop-ups, map and floor plan navigation, and seamless scene-to-scene transitions, consulting a Stanford University researcher to shape the educational experience.",
         features: [
             {
                 title: "Interactive 360° Panoramas",
@@ -487,7 +487,11 @@ export const projectsData = {
             },
             {
                 title: "Multi-Stakeholder Collaboration",
-                description: "Professional presentation incorporating branding and recognition for six project sponsors while maintaining focus on educational content and the Observatory's mission."
+                description: "First-ever unified digital experience across the Observatory and its six partner groups — Mount Washington State Park, Mt. Washington Auto Road, Mount Washington Cog Railway, the Appalachian Mountain Club, the US Forest Service, and Townsquare Media."
+            },
+            {
+                title: "On-Site Atmospheric Audio",
+                description: "Audio recorded at the summit itself — wind, instruments, and ambient station sounds — immerses virtual visitors in the sensory experience of the world's most extreme weather station."
             }
         ],
         technicalHighlights: [
@@ -500,9 +504,11 @@ export const projectsData = {
         ],
         technologies: ["ThingLink Platform", "360° Photography", "Interactive Media Design", "Multimedia Integration", "UX Design", "Educational Technology"],
         outcomes: [
-            "Successfully delivered polished virtual tour to Mount Washington Observatory and six sponsors on schedule",
-            "Created accessible educational resource to be used by K-12 schools, universities, and weather education programs",
-            "Received positive feedback from Observatory staff, sponsors, and educators for engaging presentation",
+            "Delivered the complete tour in 9 weeks (6 weeks research and planning, 3 weeks on-site capture) — now live on the Observatory's website",
+            "Deployed beyond the web: a 55-inch touchscreen installation at the Cog Railway museum and VR headset showcases at Observatory fundraising events",
+            "Unified the Observatory and six partner groups into a single digital experience for the first time",
+            "Serves K-12 science education nationwide, doubling as a pre-trip safety resource and post-visit follow-up tool",
+            "Featured as a case study on ThingLink's blog, with annual content refreshes planned through future WPI student cohorts",
             "Enabled year-round virtual access to the summit regardless of dangerous weather conditions"
         ],
         lessonsLearned: [
