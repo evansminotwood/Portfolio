@@ -44,7 +44,7 @@ export default function Education() {
             {
                 id: "deans",
                 title: "Dean's List",
-                subtitle: "2023 – Present (5x Recipient)",
+                subtitle: "2023 – Present (6x Recipient)",
                 description: "Recognized for outstanding academic performance",
                 gradient: "from-red-700 to-slate-500",
                 borderColor: "border-amber-400 dark:border-amber-500",
