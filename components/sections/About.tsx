@@ -1,6 +1,8 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Reveal, CountUp } from "@/components/ui/reveal";
+import { projects } from "@/lib/projects";
 import { FaGraduationCap, FaMapMarkerAlt, FaCode, FaChartLine } from "react-icons/fa";
 
 export default function About() {
@@ -49,9 +51,23 @@ export default function About() {
         ]
     };
 
+    const stats = [
+        { value: 3.85, decimals: 2, suffix: "", label: "GPA" },
+        { value: 6, decimals: 0, suffix: "x", label: "Dean's List" },
+        { value: projects.length, decimals: 0, suffix: "", label: "Projects" },
+        { value: 2, decimals: 0, suffix: "", label: "Majors" },
+    ];
+
     return (
-        <section id="about" className="scroll-mt-24 min-h-[calc(100vh-6rem)] flex items-center justify-center bg-background px-4 py-12">
-            <Card className="max-w-5xl w-full overflow-hidden">
+        <section id="about" className="relative scroll-mt-24 min-h-screen flex items-center justify-center bg-background px-4 pt-16 overflow-hidden">
+            {/* Ambient glow blobs */}
+            <div aria-hidden className="pointer-events-none absolute inset-0">
+                <div className="absolute -top-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-blue-600/10 blur-3xl animate-[float-blob_14s_ease-in-out_infinite]" />
+                <div className="absolute -bottom-32 -right-32 h-[24rem] w-[24rem] rounded-full bg-purple-600/10 blur-3xl animate-[float-blob_18s_ease-in-out_infinite_reverse]" />
+            </div>
+
+            <Reveal className="max-w-5xl w-full py-10">
+            <Card className="w-full overflow-hidden ring-1 ring-white/10">
                 <CardContent className="p-0">
                     <div className="flex flex-col md:flex-row">
 
@@ -103,16 +119,29 @@ export default function About() {
                             </div>
 
                             {/* Bio */}
-                            <div className="border-l-4 border-blue-600 pl-6 py-2">
+                            <div className="border-l-4 border-blue-600 pl-6 py-2 mb-8">
                                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                                     {aboutData.bio}
                                 </p>
+                            </div>
+
+                            {/* Stats */}
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                {stats.map((stat) => (
+                                    <div key={stat.label} className="text-center">
+                                        <p className="text-2xl md:text-3xl font-bold text-blue-500">
+                                            <CountUp value={stat.value} decimals={stat.decimals} suffix={stat.suffix} />
+                                        </p>
+                                        <p className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
                     </div>
                 </CardContent>
             </Card>
+            </Reveal>
         </section>
     );
 }

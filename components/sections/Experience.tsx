@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Reveal } from "@/components/ui/reveal";
 import { FaBriefcase, FaUsers, FaCode, FaCalendarAlt } from "react-icons/fa";
 
 export default function Experience() {
@@ -58,24 +59,30 @@ export default function Experience() {
   const leadershipExperience = experiencesData.psk;
 
   return (
-    <section id="experience" className="scroll-mt-24 py-32 bg-background flex justify-center px-4">
-      <div className="max-w-5xl w-full">
+    <section id="experience" className="relative scroll-mt-24 py-32 bg-background flex justify-center px-4 overflow-hidden">
+      {/* Ambient glow blob */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute bottom-1/4 -left-40 h-[24rem] w-[24rem] rounded-full bg-blue-600/10 blur-3xl animate-[float-blob_15s_ease-in-out_infinite_reverse]" />
+      </div>
+
+      <div className="max-w-5xl w-full relative">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <Reveal className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Experience</h2>
           <div className="h-1 w-24 bg-blue-600 rounded-full mx-auto mb-4"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Professional experiences in education, web development, and leadership
           </p>
-        </div>
+        </Reveal>
 
         {/* Professional Experience Timeline */}
         <div className="space-y-8">
-          {experiences.map((exp) => {
+          {experiences.map((exp, expIdx) => {
             const Icon = exp.icon;
 
             return (
-              <Card key={exp.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow border-0 p-0">
+              <Reveal key={exp.id} delay={expIdx * 120}>
+              <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow border-0 p-0 ring-1 ring-white/10 hover:ring-blue-500/30">
                 <CardContent className="p-0">
                   {/* Header */}
                   <div className="bg-blue-600 p-6 text-white rounded-t-xl">
@@ -119,12 +126,14 @@ export default function Experience() {
                   </div>
                 </CardContent>
               </Card>
+              </Reveal>
             );
           })}
         </div>
 
         {/* Leadership Experience Callout */}
-        <Card className="mt-12 overflow-hidden shadow-lg border-0 p-0">
+        <Reveal delay={120}>
+        <Card className="mt-12 overflow-hidden shadow-lg border-0 p-0 ring-1 ring-white/10 hover:ring-blue-500/30 transition-shadow">
           <CardContent className="p-0">
             <div className="bg-blue-600 p-6 text-white rounded-t-xl">
               <div className="flex items-start gap-4">
@@ -156,6 +165,7 @@ export default function Experience() {
             </div>
           </CardContent>
         </Card>
+        </Reveal>
       </div>
     </section>
   );

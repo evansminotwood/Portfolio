@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Reveal } from "@/components/ui/reveal";
 import { FaGraduationCap, FaAward, FaBook, FaLaptopCode } from "react-icons/fa";
 import { SiPython } from "react-icons/si";
 
@@ -90,23 +91,29 @@ export default function Education() {
     };
 
     return (
-        <section id="education" className="scroll-mt-24 py-32 bg-muted/30 flex justify-center px-4">
-            <div className="max-w-5xl w-full">
+        <section id="education" className="relative scroll-mt-24 py-32 bg-muted/30 flex justify-center px-4 overflow-hidden">
+            {/* Ambient glow blob */}
+            <div aria-hidden className="pointer-events-none absolute inset-0">
+                <div className="absolute top-1/4 -right-40 h-[26rem] w-[26rem] rounded-full bg-cyan-500/10 blur-3xl animate-[float-blob_16s_ease-in-out_infinite]" />
+            </div>
+
+            <div className="max-w-5xl w-full relative">
                 {/* Section Header */}
-                <div className="text-center mb-16">
+                <Reveal className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Education</h2>
                     <div className="h-1 w-24 bg-blue-600 rounded-full mx-auto mb-4"></div>
                     <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                         My academic journey combining computer science and data science
                     </p>
-                </div>
+                </Reveal>
 
                 {/* Main Education Card */}
-                <Card className="overflow-hidden shadow-xl border-0 p-0">
+                <Reveal delay={150}>
+                <Card className="overflow-hidden shadow-xl border-0 p-0 ring-1 ring-white/10 hover:ring-blue-500/30 transition-shadow duration-300">
                     <CardContent className="p-0">
                         {/* Header Banner */}
                         <div className="bg-blue-600 p-8 text-white rounded-t-xl">
-                            <div className="flex items-start gap-6">
+                            <div className="flex flex-col sm:flex-row items-start gap-6">
                                 <div className="p-4 bg-white/20 rounded-xl backdrop-blur-sm">
                                     <FaGraduationCap className="text-5xl" />
                                 </div>
@@ -129,7 +136,7 @@ export default function Education() {
                             <div className="mb-10">
                                 <div className="flex items-center gap-3 mb-6">
                                     <FaAward className="text-2xl text-blue-600" />
-                                    <h4 className="text-2xl font-semibold text-foreground">Degrees</h4>
+                                    <h4 className="text-2xl font-semibold text-foreground">Majors</h4>
                                 </div>
                                 <div className="grid md:grid-cols-2 gap-6">
                                     {educationData.degrees.map((degree) => {
@@ -208,6 +215,7 @@ export default function Education() {
                         </div>
                     </CardContent>
                 </Card>
+                </Reveal>
             </div>
         </section>
     );

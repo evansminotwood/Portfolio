@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FaArrowLeft, FaGithub, FaExternalLinkAlt, FaCalendarAlt, FaUsers, FaLightbulb, FaCog, FaTimes } from "react-icons/fa";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProjectDetailProps {
     project: {
@@ -40,10 +41,9 @@ interface ProjectDetailProps {
             caption?: string;
         }>;
     };
-    onBack: () => void;
 }
 
-export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
+export default function ProjectDetail({ project }: ProjectDetailProps) {
     const Icon = project.icon;
     const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
@@ -80,12 +80,14 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
             <div className="max-w-4xl mx-auto">
                 {/* Back Button */}
                 <Button
+                    asChild
                     variant="ghost"
                     className="mb-6 hover:bg-muted"
-                    onClick={onBack}
                 >
-                    <FaArrowLeft className="mr-2" />
-                    Back to Projects
+                    <Link href="/#projects">
+                        <FaArrowLeft className="mr-2" />
+                        Back to Projects
+                    </Link>
                 </Button>
 
                 {/* Hero Section */}
@@ -352,12 +354,14 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
                 {/* Back Button at Bottom */}
                 <div className="text-center">
                     <Button
+                        asChild
                         size="lg"
                         variant="outline"
-                        onClick={onBack}
                     >
-                        <FaArrowLeft className="mr-2" />
-                        Back to All Projects
+                        <Link href="/#projects">
+                            <FaArrowLeft className="mr-2" />
+                            Back to All Projects
+                        </Link>
                     </Button>
                 </div>
             </div>

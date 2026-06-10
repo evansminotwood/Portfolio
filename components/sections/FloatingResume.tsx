@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { FaDownload, FaExternalLinkAlt } from "react-icons/fa";
+import { FaDownload, FaExternalLinkAlt, FaFilePdf } from "react-icons/fa";
 
 interface FloatingResumeProps {
   isOpen: boolean;
@@ -13,6 +13,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size, setSize] = useState({ width: 700, height: 850 });
   const [isInitialized, setIsInitialized] = useState(false);
@@ -27,10 +28,12 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
 
   const dragStart = useRef({ x: 0, y: 0, startX: 0, startY: 0 });
   const resizeStart = useRef({ x: 0, y: 0, startWidth: 0, startHeight: 0 });
+  const restoreState = useRef({ position: { x: 0, y: 0 }, size: { width: 700, height: 850 } });
 
   const MIN_WIDTH = 400;
   const MIN_HEIGHT = 500;
   const SNAP_THRESHOLD = 15;
+  const NAVBAR_HEIGHT = 64;
 
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -61,6 +64,16 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
     }
   }, [isOpen, isInitialized, size.width, size.height, isMobile]);
 
+  // Close on Escape
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, setIsOpen]);
+
   // Snap to edges helper
   const snapPosition = (x: number, y: number) => {
     const vw = window.innerWidth;
@@ -80,10 +93,27 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
     return { x: snapX, y: snapY };
   };
 
+  const toggleMaximize = () => {
+    if (isMaximized) {
+      setPosition(restoreState.current.position);
+      setSize(restoreState.current.size);
+      setIsMaximized(false);
+    } else {
+      restoreState.current = { position, size };
+      const margin = 16;
+      setPosition({ x: margin, y: NAVBAR_HEIGHT + margin });
+      setSize({
+        width: window.innerWidth - margin * 2,
+        height: window.innerHeight - NAVBAR_HEIGHT - margin * 2,
+      });
+      setIsMaximized(true);
+    }
+  };
+
   // Drag handlers
   const handleDragStart = (e: React.MouseEvent) => {
-    if (isMobile) return; // Disable dragging on mobile
-    if ((e.target as HTMLElement).closest('button')) return;
+    if (isMobile || isMaximized) return;
+    if ((e.target as HTMLElement).closest('button, a')) return;
 
     setIsDragging(true);
     dragStart.current = {
@@ -118,7 +148,7 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
   };
 
   const handleResizeStart = (e: React.MouseEvent) => {
-    if (isMobile) return;
+    if (isMobile || isMaximized) return;
     e.stopPropagation();
     setIsResizing(true);
     resizeStart.current = {
@@ -175,24 +205,27 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
 
   if (!isOpen) return null;
 
-  // Mobile full-screen view
+  // Mobile bottom-sheet style modal
   if (isMobile) {
     return (
       <div
-        className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
         onClick={() => setIsOpen(false)}
       >
         <div
-          className="bg-white dark:bg-gray-900 rounded-lg shadow-2xl w-full max-w-md p-6 space-y-4"
+          className="w-full max-w-md space-y-5 rounded-2xl border border-white/10 bg-background/95 p-6 shadow-2xl backdrop-blur-md animate-[window-pop_250ms_ease-out]"
           onClick={(e) => e.stopPropagation()}
         >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white text-center">
-            View Resume
-          </h2>
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600/20 ring-1 ring-blue-500/40">
+            <FaFilePdf className="text-2xl text-blue-400" />
+          </div>
 
-          <p className="text-gray-600 dark:text-gray-400 text-center">
-            Choose how you'd like to view the resume
-          </p>
+          <div className="space-y-1 text-center">
+            <h2 className="text-xl font-bold text-foreground">Resume</h2>
+            <p className="text-sm text-muted-foreground">
+              Evans Minot Wood — CS & Data Science @ WPI
+            </p>
+          </div>
 
           <div className="space-y-3">
             <Button
@@ -200,10 +233,10 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
                 window.open(resumePath, '_blank');
                 setIsOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2"
+              className="w-full bg-blue-600 hover:bg-blue-700"
               size="lg"
             >
-              <FaExternalLinkAlt className="w-4 h-4" />
+              <FaExternalLinkAlt className="mr-2 h-4 w-4" />
               Open in New Tab
             </Button>
 
@@ -215,18 +248,18 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
                 link.click();
                 setIsOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2"
+              className="w-full border-white/15 bg-white/5 hover:bg-white/10"
               variant="outline"
               size="lg"
             >
-              <FaDownload className="w-4 h-4" />
+              <FaDownload className="mr-2 h-4 w-4" />
               Download PDF
             </Button>
 
             <Button
               onClick={() => setIsOpen(false)}
               variant="ghost"
-              className="w-full"
+              className="w-full text-muted-foreground"
               size="lg"
             >
               Cancel
@@ -251,7 +284,9 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
       {/* Floating window */}
       <div
         ref={windowRef}
-        className="fixed bg-white dark:bg-gray-900 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden z-50"
+        className={`fixed z-50 flex flex-col overflow-hidden rounded-xl border border-white/10 bg-[#0a0e1a] shadow-2xl shadow-black/60 animate-[window-pop_250ms_ease-out] transition-shadow ${
+          isDragging || isResizing ? 'ring-2 ring-blue-500/40' : 'ring-1 ring-white/5'
+        }`}
         style={{
           left: `${position.x}px`,
           top: `${position.y}px`,
@@ -261,26 +296,63 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
       >
         {/* Title bar */}
         <div
-          className="bg-gradient-to-r bg-[#0a0e1a] px-4 py-3 flex justify-between items-center cursor-grab active:cursor-grabbing"
+          className="flex select-none items-center justify-between gap-2 border-b border-white/10 bg-[#0a0e1a]/95 px-4 py-2 backdrop-blur-md cursor-grab active:cursor-grabbing"
           onMouseDown={handleDragStart}
+          onDoubleClick={toggleMaximize}
+          title="Drag to move — double-click to maximize"
         >
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full opacity-80" />
-            <span className="font-semibold text-white text-sm">Resume - Evans Minot Wood</span>
+          <div className="flex items-center gap-3">
+            {/* Traffic lights */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsOpen(false)}
+                aria-label="Close resume"
+                className="group/light flex h-3 w-3 items-center justify-center rounded-full bg-red-500 transition-colors hover:bg-red-400"
+              >
+                <span className="text-[9px] font-bold leading-none text-red-950 opacity-0 transition-opacity group-hover/light:opacity-100">×</span>
+              </button>
+              <button
+                onClick={toggleMaximize}
+                aria-label={isMaximized ? "Restore window size" : "Maximize window"}
+                className="group/light flex h-3 w-3 items-center justify-center rounded-full bg-green-500 transition-colors hover:bg-green-400"
+              >
+                <span className="text-[9px] font-bold leading-none text-green-950 opacity-0 transition-opacity group-hover/light:opacity-100">+</span>
+              </button>
+            </div>
+            <span className="text-sm font-medium text-white/90">
+              Evans Minot Wood — Resume
+            </span>
           </div>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-white hover:bg-white/20 rounded px-2 py-1 transition-colors"
-          >
-            ✕
-          </button>
+
+          <div className="flex items-center gap-1">
+            <Button
+              asChild
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 text-white/60 hover:bg-white/10 hover:text-white"
+            >
+              <a href={resumePath} download="Evans-Minot-Wood-Resume.pdf" aria-label="Download resume">
+                <FaDownload className="text-xs" />
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7 text-white/60 hover:bg-white/10 hover:text-white"
+            >
+              <a href={resumePath} target="_blank" rel="noopener noreferrer" aria-label="Open resume in new tab">
+                <FaExternalLinkAlt className="text-xs" />
+              </a>
+            </Button>
+          </div>
         </div>
 
         {/* Content area */}
         <div className="flex-1 overflow-hidden">
           <iframe
-            src={resumePath}
-            className="w-full h-full border-0"
+            src={`${resumePath}#navpanes=0&view=FitH`}
+            className="h-full w-full border-0"
             title="Resume PDF Viewer"
           />
         </div>
@@ -288,9 +360,9 @@ export default function FloatingResume({ isOpen, setIsOpen }: FloatingResumeProp
         {/* Resize handle - bottom right corner */}
         <div
           onMouseDown={handleResizeStart}
-          className="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize group touch-none"
+          className="group absolute bottom-0 right-0 h-4 w-4 cursor-nwse-resize touch-none"
         >
-          <div className="absolute bottom-1 right-1 w-3 h-3 border-r-2 border-b-2 border-gray-400 dark:border-gray-500 group-hover:border-blue-500 transition-colors" />
+          <div className="absolute bottom-1 right-1 h-3 w-3 border-b-2 border-r-2 border-white/25 transition-colors group-hover:border-blue-500" />
         </div>
 
         {/* Resize handles - edges */}

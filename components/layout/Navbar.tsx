@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import {
     NavigationMenu,
     NavigationMenuItem,
@@ -13,24 +14,16 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { projects } from "@/lib/projects";
 
 export default function Navbar({
     onToggleResume,
-    onNavClick,
 }: {
     onToggleResume: () => void;
-    onNavClick?: (sectionId?: string) => void;
 }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const imgSrc = '/images/Evans-Minot-Wood.jpg';
-
-    const handleNavClick = (id: string) => {
-        setIsMobileMenuOpen(false);
-
-        // Pass the section ID to parent
-        onNavClick?.(id);
-    };
 
     const handleResumeClick = () => {
         setIsMobileMenuOpen(false);
@@ -38,23 +31,16 @@ export default function Navbar({
     };
 
     return (
-        <header className="fixed top-0 z-50 w-full border-b bg-background">
-            <div className="container mx-auto flex items-center justify-between py-4 px-4">
+        <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-background/80 backdrop-blur-md">
+            <div className="container mx-auto flex h-16 items-center justify-between px-4">
                 {/* Left: Name / Home with HoverCard */}
                 <NavigationMenu>
                     <NavigationMenuList>
                         <NavigationMenuItem>
                             <HoverCard openDelay={150}>
                                 <HoverCardTrigger asChild>
-                                    <NavigationMenuLink
-                                        href="#top"
-                                        className="text-lg font-semibold"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            handleNavClick("top");
-                                        }}
-                                    >
-                                        Evans Minot Wood
+                                    <NavigationMenuLink asChild className="text-lg font-semibold">
+                                        <Link href="/">Evans Minot Wood</Link>
                                     </NavigationMenuLink>
                                 </HoverCardTrigger>
 
@@ -91,20 +77,51 @@ export default function Navbar({
                             { id: "about", label: "About" },
                             { id: "education", label: "Education" },
                             { id: "experience", label: "Experience" },
-                            { id: "projects", label: "Projects" },
                         ].map((link) => (
                             <NavigationMenuItem key={link.id}>
-                                <NavigationMenuLink
-                                    href={`#${link.id}`}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleNavClick(link.id);
-                                    }}
-                                >
-                                    {link.label}
+                                <NavigationMenuLink asChild>
+                                    <Link href={`/#${link.id}`}>{link.label}</Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
                         ))}
+
+                        {/* Projects: click navigates, hover shows top projects */}
+                        <NavigationMenuItem className="relative group/projects">
+                            <NavigationMenuLink asChild>
+                                <Link href="/#projects">Projects</Link>
+                            </NavigationMenuLink>
+
+                            <div className="pointer-events-none invisible absolute right-0 top-full z-50 w-80 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover/projects:pointer-events-auto group-hover/projects:visible group-hover/projects:translate-y-0 group-hover/projects:opacity-100 group-focus-within/projects:pointer-events-auto group-focus-within/projects:visible group-focus-within/projects:translate-y-0 group-focus-within/projects:opacity-100">
+                                <div className="rounded-xl border border-white/10 bg-background/95 p-2 shadow-2xl backdrop-blur-md">
+                                    {projects.slice(0, 3).map((project) => {
+                                        const Icon = project.icon;
+                                        return (
+                                            <Link
+                                                key={project.id}
+                                                href={`/projects/${project.id}`}
+                                                className="flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-muted/60"
+                                            >
+                                                <div className={`shrink-0 rounded-md bg-gradient-to-br ${project.gradient} p-2 text-white`}>
+                                                    <Icon className="text-lg" />
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <p className="truncate text-sm font-semibold text-foreground">{project.title}</p>
+                                                    <p className="truncate text-xs text-muted-foreground">{project.subtitle}</p>
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                    <div className="mt-1 border-t border-white/10 pt-1">
+                                        <Link
+                                            href="/#projects"
+                                            className="block rounded-lg p-2 text-center text-xs font-medium text-blue-400 transition-colors hover:bg-muted/60"
+                                        >
+                                            View all {projects.length} projects →
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </NavigationMenuItem>
 
                         <NavigationMenuItem>
                             <NavigationMenuLink
@@ -146,7 +163,7 @@ export default function Navbar({
 
             {/* Mobile Menu - No longer includes Resume */}
             {isMobileMenuOpen && (
-                <div className="md:hidden border-t bg-background">
+                <div className="md:hidden border-t border-white/10 bg-background/95 backdrop-blur-md">
                     <nav className="container mx-auto py-4 flex flex-col gap-2">
                         {[
                             { id: "about", label: "About" },
@@ -156,11 +173,16 @@ export default function Navbar({
                         ].map((link) => (
                             <Button
                                 key={link.id}
+                                asChild
                                 variant="ghost"
                                 className="justify-start text-base"
-                                onClick={() => handleNavClick(link.id)}
                             >
-                                {link.label}
+                                <Link
+                                    href={`/#${link.id}`}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    {link.label}
+                                </Link>
                             </Button>
                         ))}
                     </nav>
