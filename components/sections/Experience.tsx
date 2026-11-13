@@ -2,10 +2,39 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Reveal } from "@/components/ui/reveal";
-import { FaBriefcase, FaUsers, FaCode, FaCalendarAlt } from "react-icons/fa";
+import { FaBriefcase, FaUsers, FaCode, FaCalendarAlt, FaFlask, FaChalkboardTeacher } from "react-icons/fa";
 
 export default function Experience() {
   const experiencesData = {
+    mqp: {
+      id: "mqp",
+      title: "Undergraduate Researcher (MQP)",
+      organization: "Worcester Polytechnic Institute",
+      program: "Major Qualifying Project (WPI's senior research capstone) - Advised by Prof. Neil Heffernan",
+      location: "Worcester, MA",
+      dates: "Fall 2026 – Present",
+      icon: FaFlask,
+      responsibilities: [
+        "Researching ways to evaluate randomized controlled trials on ASSISTments, an online math learning platform, using knowledge tracing",
+        "Running and evaluating knowledge tracing models on an ASSISTments trial testing whether LLM-selected tutoring feedback strategies improve student performance on subsequent attempts and problems",
+        "Building a CLI tool that lets researchers combine remnant and trial data with any of the supported knowledge tracing methods to quickly evaluate their own RCTs",
+        "Modeling outcomes with mixed-effects logistic regression (lme4 glmer) using random intercepts for student, problem, and class, reported with sjPlot and texreg"
+      ]
+    },
+    insight: {
+      id: "insight",
+      title: "Community Advisor",
+      organization: "Worcester Polytechnic Institute",
+      program: "Insight Program - First-Year Experience",
+      location: "Worcester, MA",
+      dates: "Fall 2026",
+      icon: FaChalkboardTeacher,
+      responsibilities: [
+        "Mentor a group of 40 first-year students through their first two terms, alongside an Insight Advisor",
+        "Plan and lead weekly social and educational programs for my Insight group, including lessons on academic integrity and AI",
+        "Help new students acclimate to life at WPI and connect them with academic and campus resources"
+      ]
+    },
     wpi: {
       id: "wpi",
       title: "Residential Program Advisor",
@@ -52,6 +81,8 @@ export default function Experience() {
   };
 
   const experiences = [
+    experiencesData.mqp,
+    experiencesData.insight,
     experiencesData.wpi,
     experiencesData.perkins
   ];
@@ -71,7 +102,7 @@ export default function Experience() {
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Experience</h2>
           <div className="h-1 w-24 bg-blue-600 rounded-full mx-auto mb-4"></div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Professional experiences in education, web development, and leadership
+            Professional experiences in research, education, web development, and leadership
           </p>
         </Reveal>
 

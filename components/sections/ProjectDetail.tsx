@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FaArrowLeft, FaGithub, FaExternalLinkAlt, FaCalendarAlt, FaUsers, FaLightbulb, FaCog, FaTimes } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaGithub, FaExternalLinkAlt, FaCalendarAlt, FaUsers, FaLightbulb, FaCog, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
+import { projects } from "@/lib/projects";
 
 interface ProjectDetailProps {
     project: {
@@ -47,6 +48,20 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
     const Icon = project.icon;
     const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
+    // Previous / next follow the home page order and wrap around
+    const projectIdx = projects.findIndex((p) => p.id === project.id);
+    const prevProject = projects[(projectIdx - 1 + projects.length) % projects.length];
+    const nextProject = projects[(projectIdx + 1) % projects.length];
+
+    useEffect(() => {
+        if (!zoomedImage) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setZoomedImage(null);
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [zoomedImage]);
+
     return (
         <>
         {/* Zoomed Image Modal */}
@@ -84,7 +99,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                     variant="ghost"
                     className="mb-6 hover:bg-muted"
                 >
-                    <Link href="/#projects">
+                    <Link href={`/#project-${project.id}`}>
                         <FaArrowLeft className="mr-2" />
                         Back to Projects
                     </Link>
@@ -351,6 +366,32 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                     </Card>
                 )}
 
+                {/* Previous / Next Project */}
+                {projectIdx !== -1 && (
+                    <nav aria-label="More projects" className="grid sm:grid-cols-2 gap-4 mb-8">
+                        <Link
+                            href={`/projects/${prevProject.id}`}
+                            className="group rounded-xl border border-white/10 bg-muted/40 p-6 transition-all hover:border-blue-500/40 hover:bg-muted/70"
+                        >
+                            <span className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
+                                <FaArrowLeft className="transition-transform group-hover:-translate-x-1" />
+                                Previous Project
+                            </span>
+                            <span className="text-lg font-semibold text-foreground">{prevProject.title}</span>
+                        </Link>
+                        <Link
+                            href={`/projects/${nextProject.id}`}
+                            className="group rounded-xl border border-white/10 bg-muted/40 p-6 text-right transition-all hover:border-blue-500/40 hover:bg-muted/70"
+                        >
+                            <span className="flex items-center justify-end gap-2 text-sm text-muted-foreground mb-1">
+                                Next Project
+                                <FaArrowRight className="transition-transform group-hover:translate-x-1" />
+                            </span>
+                            <span className="text-lg font-semibold text-foreground">{nextProject.title}</span>
+                        </Link>
+                    </nav>
+                )}
+
                 {/* Back Button at Bottom */}
                 <div className="text-center">
                     <Button
@@ -358,7 +399,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                         size="lg"
                         variant="outline"
                     >
-                        <Link href="/#projects">
+                        <Link href={`/#project-${project.id}`}>
                             <FaArrowLeft className="mr-2" />
                             Back to All Projects
                         </Link>

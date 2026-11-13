@@ -1,9 +1,10 @@
-import { FaCode, FaLaptopCode, FaMusic, FaMountain, FaCamera, FaEdit, FaGlobe } from "react-icons/fa";
-import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSoundcloud, SiNextdotjs, SiPostgresql, SiDocker, SiFastapi, SiPytorch, SiGooglechrome, SiGo, SiPrisma } from "react-icons/si";
+import { FaCode, FaLaptopCode, FaMusic, FaMountain, FaCamera, FaEdit, FaGlobe, FaDna, FaIdCard, FaServer, FaCoins, FaMicrochip } from "react-icons/fa";
+import { SiReact, SiPython, SiJavascript, SiAwslambda, SiSoundcloud, SiNextdotjs, SiPostgresql, SiDocker, SiFastapi, SiPytorch, SiGooglechrome, SiGo, SiPrisma, SiHtml5, SiTailscale, SiCloudflare, SiNginxproxymanager, SiAdguard } from "react-icons/si";
 
 export const projectsData = {
     shopcomp: {
         id: "shopcomp",
+        categories: ["Software"],
         title: "ShopComp.online",
         subtitle: "AI-Powered Receipt Management Platform",
         description: "Full-stack web application for shopper, receipt, and store management with AI-powered receipt analysis",
@@ -61,6 +62,7 @@ export const projectsData = {
     },
     compiler: {
         id: "compiler",
+        categories: ["Software"],
         title: "Python-to-x86 Compiler",
         subtitle: "Full-Featured Language Compiler",
         description: "Fully functional compiler that transforms Python code into optimized x86 assembly with advanced language features",
@@ -124,6 +126,7 @@ export const projectsData = {
     },
     aureus: {
         id: "aureus",
+        categories: ["Software", "ML & Research"],
         title: "Aureus",
         subtitle: "AI-Powered Coin Portfolio Manager with PCGS Integration",
         description: "A production-ready, cloud-native platform for managing coin collections featuring automated AI-based identification, professional coin grading integration (PCGS API), real-time metal composition analysis, melt value calculations, and comprehensive portfolio analytics.",
@@ -260,8 +263,94 @@ export const projectsData = {
         //     { type: "image" as const, src: "/projects/aureus-pcgs.png", alt: "PCGS grading detail", caption: "Auto-populated PCGS grading data with manual override" },
         // ],
     },
+    musicga: {
+        id: "musicga",
+        categories: ["Software", "ML & Research"],
+        title: "Evolving Music",
+        subtitle: "A Genetic Algorithm for Music Composition",
+        description: "A full-stack web app that uses a genetic algorithm to evolve melodies in real time. Tune music-theory fitness weights in the UI, watch the melody improve generation by generation on a live piano roll, then play it back or export it as MIDI.",
+        icon: FaDna,
+        gradient: "from-emerald-500 via-teal-500 to-cyan-500",
+        tags: ["Genetic Algorithm", "Python", "FastAPI", "Next.js", "Tone.js", "Music Theory"],
+        techIcons: [SiPython, SiFastapi, SiNextdotjs, SiDocker],
+        links: {
+            live: null,
+            github: "https://github.com/evansminotwood/GA-Music"
+        },
+        date: "Spring 2026",
+        team: "Humanities Practicum",
+        overview: "Evolving Music is a digital-humanities project that sits at the intersection of computer science and music theory. Instead of searching for a pleasing melody by brute force, it maintains a population of 80 candidate melodies and improves them through natural selection — scoring each against a fitness function built from 20+ music-theory components, then selecting, recombining, and mutating the best across 150 generations. A FastAPI backend streams every generation to a Next.js frontend over Server-Sent Events, so you can watch the melody climb from random noise to a coherent, stylistically-grounded line in real time on a live piano roll, then hear it through a browser synth or export it as a standard MIDI file.",
+        problem: "Genetic algorithms are usually taught as abstractions — optimizing a number, with the search invisible and the result a single answer at the end. Music is the opposite: it's experiential, governed by centuries of theory (cadences, voice leading, phrase structure, stylistic idiom) that resists being reduced to a single objective. The challenge of a Humanities Practicum was to make evolutionary computation both audible and legible: to encode genuine musical aesthetics as a fitness landscape, and to expose the search as it happens rather than hiding it behind a final output.",
+        solution: "I represented each melody as a list of (pitch, duration, velocity) notes — including rests — and built a DEAP-based genetic algorithm with tournament selection, two-point crossover, adaptive mutation, and a Hall of Fame. The fitness function decomposes musicality into graded components (scale conformance, pitch contour, cadences, leading-tone resolution, phrase arch, jazz blue notes, syncopation, and more), each returning a value between 0 and 1 so the GA always has a gradient to climb. Classical and Jazz presets reshape the weights to give each style its own character. The whole run streams to the browser generation-by-generation, where a canvas piano roll, an interactive fitness chart, and a Tone.js sampler turn the optimization into something you can see and hear.",
+        features: [
+            {
+                title: "Real-Time Generational Streaming",
+                description: "The FastAPI backend runs the GA and pushes each generation to the browser over Server-Sent Events. The live piano roll and fitness chart update as the population evolves, so you watch a melody emerge from random noise across 150 generations rather than waiting for a final result."
+            },
+            {
+                title: "Music-Theory Fitness Function",
+                description: "Every individual is scored as a weighted average of 20+ components — scale conformance, pitch contour, rhythmic variety, authentic cadence, leading-tone resolution, antecedent/consequent phrasing, phrase arch, jazz blue notes, syncopation, and more. Each returns a graded 0–1 score so small improvements are always rewarded, giving the search a slope to climb instead of a flat pass/fail landscape."
+            },
+            {
+                title: "Tunable Weights & Style Presets",
+                description: "You control every fitness weight from the UI. Classical and Jazz presets don't just turn dials up — they deliberately zero out conflicting components (Classical mutes velocity variation and irregular spacing; Jazz turns off scale conformance entirely to let blue notes drive the line), so each style develops its own identity rather than a muddy average."
+            },
+            {
+                title: "Domain-Aware Genetic Operators",
+                description: "The GA encodes musical knowledge directly into its operators: bar-boundary crossover only cuts where both parents sit on a 4-beat boundary (preserving metric structure), scale-constrained mutation draws new pitches from the dominant scale, and cadence pinning fixes a V→I resolution in C-major mode. A Hall of Fame preserves the top 5% of melodies ever discovered."
+            },
+            {
+                title: "Local Hillclimbing",
+                description: "Every 10 generations a Lamarckian hillclimbing pass refines the current Hall of Fame leader — trying the two nearest pitches for each note and keeping any improvement. This accelerates late-generation convergence once the population has homogenized and crossover yields diminishing returns."
+            },
+            {
+                title: "Browser Synth Playback & MIDI Export",
+                description: "Play the evolved melody in-browser via a Tone.js sampler using the Salamander Grand Piano routed through reverb, with explicit note re-attack so repeated pitches strike distinctly. Or export the result as a standard MIDI file through a dedicated backend endpoint to open in any DAW."
+            },
+            {
+                title: "Generation Scrubbing",
+                description: "Hovering across the fitness chart scrubs through the entire evolution history — the piano roll and playback snap to whichever generation the cursor is on, then back to the final result on leave, making the algorithm's progress directly explorable."
+            }
+        ],
+        technicalHighlights: [
+            "Genetic algorithm built on DEAP with tournament selection, two-point crossover, adaptive mutation, and Hall of Fame elitism (top 5%, minimum 2)",
+            "Graded fitness scoring (every component returns 0–1) instead of binary pass/fail, giving the GA a continuous gradient to optimize from generation one",
+            "Bar-boundary crossover that only cuts where both parents are simultaneously on a 4-beat boundary, falling back to standard crossover when fewer than two shared boundaries exist",
+            "Scale-constrained mutation that infers a pitch pool from whichever scale weight dominates (C major, Dorian/blues, or full chromatic)",
+            "Fixed cadence pinning that locks the last two pitched notes to a smooth-voice-leading V→I resolution in C-major mode after every mutation pass",
+            "Adaptive mutation rate that decays to 30% of its configured value by the final generation — aggressive early exploration, fine-tuning late",
+            "Lamarckian local hillclimbing applied to the Hall of Fame leader every 10 generations",
+            "FastAPI backend streaming generations over Server-Sent Events (GET /stream) and serving MIDI downloads (POST /generate)",
+            "Tone.js Salamander Grand Piano sampler through a reverb bus, with explicit 20ms release before re-attacking repeated pitches",
+            "Canvas-based piano roll and an interactive fitness chart with hover-to-scrub generation history",
+            "Two standalone chord-generation strategies: a greedy rule-based harmonizer and a separate chord-progression GA",
+            "Containerized with Docker Compose for one-command full-stack startup"
+        ],
+        technologies: ["Python", "DEAP", "pretty_midi", "librosa", "basic-pitch", "FastAPI", "Server-Sent Events", "Next.js", "React", "TypeScript", "Tone.js", "MIDI", "Tailwind CSS", "Docker"],
+        outcomes: [
+            "Built a full-stack system that makes evolutionary computation audible and interactive — best-individual fitness typically climbs from ~0.36 (random noise) to 0.80–0.92 over 150–200 generations",
+            "Encoded centuries of music theory — scale conformance, authentic cadences, leading-tone resolution, phrase arch, jazz blue notes and syncopation — as 20+ graded, independently-weighted fitness components",
+            "Demonstrated that no single component drives a good melody: the GA simultaneously satisfies scale tones, stepwise motion, rhythmic variety, and cadential structure to produce a coherent line",
+            "Turned an abstract optimization into a legible artifact through real-time streaming, a live piano roll, generation scrubbing, in-browser synth playback, and MIDI export"
+        ],
+        lessonsLearned: [
+            "Graded scoring is essential: a binary fitness function creates a flat landscape the GA can only cross by luck, while partial credit at every step gives it a slope to climb",
+            "Encoding a musical style means turning components OFF as much as turning them up — a weighted average pulled in too many directions produces mediocrity; a focused set of constraints produces character",
+            "Baking domain knowledge into the operators (bar-boundary crossover, scale-constrained mutation, cadence pinning) outperforms relying on fitness pressure alone to discover structure",
+            "Visualization is part of the argument: streaming each generation to a piano roll and scrubable fitness chart makes the algorithm's behavior understandable to a non-technical, humanities audience in a way a final MIDI file never could"
+        ],
+        // TODO: drop images in public/projects/ then uncomment (coverImage shows above the overview, like Aureus):
+        // coverImage: "/projects/musicga-cover.png",
+        // media: [
+        //     { type: "image" as const, src: "/projects/musicga-pianoroll.png", alt: "Live piano roll", caption: "The live piano roll updating generation by generation as the melody evolves" },
+        //     { type: "image" as const, src: "/projects/musicga-weights.png", alt: "Fitness weight controls", caption: "Tunable music-theory fitness weights with Classical and Jazz presets" },
+        //     { type: "image" as const, src: "/projects/musicga-chart.png", alt: "Fitness chart with generation scrubbing", caption: "Hover the fitness chart to scrub through the full evolution history" },
+        //     { type: "video" as const, src: "/projects/musicga-demo.mp4", caption: "End-to-end demo: evolving a Classical melody and exporting it as MIDI" },
+        // ],
+    },
     advent2025: {
         id: "advent2025",
+        categories: ["Software"],
         title: "Advent Of Code Solution Runner",
         subtitle: "Automated Python Framework for Algorithmic Challenges",
         description: "A custom-built Python framework for solving Advent of Code problems, featuring automatic input fetching, runtime analysis, and empirical Big-O complexity estimation.",
@@ -319,6 +408,7 @@ export const projectsData = {
     },
     deadheadsShortcut: {
         id: "deadheadsShortcut",
+        categories: ["Software"],
         title: "DeadHeads' Shortcut",
         subtitle: "Chrome Extension for Grateful Dead Archive Access",
         description: "A Chrome extension that enhances the Grateful Dead fan experience by adding direct Archive.org links to show listings on gratefulsets.net, enabling instant access to live recordings.",
@@ -376,6 +466,7 @@ export const projectsData = {
     },
     sonus: {
         id: "sonus",
+        categories: ["Software"],
         title: "Sonus",
         subtitle: "Collaborative Music Voting Platform",
         description: "A collaborative music voting platform that lets event hosts create interactive playlists where guests can request and vote on songs, powered by SoundCloud integration.",
@@ -452,6 +543,7 @@ export const projectsData = {
     },
     mtwash: {
         id: "mtwash",
+        categories: ["Software"],
         title: "Mount Washington Summit Virtual Tour",
         subtitle: "Interactive Educational Experience",
         description: "Interactive 360° virtual tour created with ThingLink in collaboration with Mount Washington Observatory",
@@ -519,15 +611,169 @@ export const projectsData = {
             "User testing with target audiences (students, teachers) provided invaluable feedback on navigation flow",
             "Educational content works best when organized around storytelling rather than information dumps"
         ]
+    },
+    pcbcard: {
+        id: "pcbcard",
+        categories: ["Hardware"],
+        title: "PCB Business Card",
+        subtitle: "Dual-NFC Printed Circuit Board Business Card",
+        description: "My first PCB design: a business card with two separate NFC tags. One opens my resume, the other opens evansminotwood.com.",
+        icon: FaIdCard,
+        gradient: "from-green-700 via-emerald-600 to-yellow-500",
+        tags: ["PCB Design", "NFC", "Hardware", "Electronics"],
+        // TODO: add design tool icon once confirmed (e.g. SiKicad)
+        techIcons: [FaMicrochip],
+        // TODO: add GitHub link
+        links: {
+            live: null,
+            github: null
+        },
+        date: "Nov 2026",
+        team: "Personal Project",
+        overview: "My first printed circuit board design is a business card that is itself a PCB. It carries two separate NFC tags: tapping one with a phone opens my resume, and tapping the other opens evansminotwood.com. I assembled the board at WPI's IEEE workshop using their reflow oven.",
+        // TODO: review problem framing
+        problem: "A paper business card can only hold so much, and anyone who wants to see more has to type a URL by hand. I also wanted a first PCB project small enough to finish but complete enough to cover design through assembly.",
+        solution: "I designed a business-card-sized PCB with two independent NFC tags, each pointing to a different destination, so a single tap takes someone straight to my resume or my portfolio. The board was then assembled at WPI's IEEE workshop using a reflow oven.",
+        features: [
+            {
+                title: "Two Independent NFC Tags",
+                description: "Two separate NFC tags on one card: one opens my resume and the other opens evansminotwood.com."
+            },
+            {
+                title: "Business Card Form Factor",
+                description: "The PCB itself is the business card, so the electronics and the card are a single piece."
+            },
+            {
+                title: "Reflow-Soldered Assembly",
+                description: "Assembled at WPI's IEEE workshop using their reflow oven."
+            }
+        ],
+        technicalHighlights: [
+            "First PCB I designed",
+            "Two separate NFC tags on a single board, each linked to a different URL",
+            "Reflow soldering at WPI's IEEE workshop"
+        ],
+        // TODO: add design tool (e.g. KiCad) and NFC chip/antenna details
+        technologies: ["PCB Design", "NFC", "Reflow Soldering"],
+        // TODO: add outcomes and lessonsLearned
+        // TODO: drop photos/renders in public/projects/ then uncomment:
+        // coverImage: "/projects/pcbcard-cover.png",
+        // media: [
+        //     { type: "image" as const, src: "/projects/pcbcard-render.png", alt: "PCB business card render", caption: "TODO caption" },
+        // ],
+    },
+    notitia: {
+        id: "notitia",
+        categories: ["Hardware"],
+        title: "Notitia Homelab",
+        subtitle: "Self-Hosted Infrastructure on a NAS",
+        description: "Self-hosted infrastructure on a UGREEN DXP2800 NAS, accessed over Tailscale and running Docker services, with public services like Sonus exposed through Cloudflare Tunnel.",
+        icon: FaServer,
+        gradient: "from-slate-600 via-cyan-700 to-teal-600",
+        tags: ["Homelab", "Docker", "Self-Hosting", "Networking", "Tailscale", "Cloudflare"],
+        techIcons: [SiDocker, SiTailscale, SiCloudflare, SiNginxproxymanager, SiAdguard],
+        links: {
+            live: null,
+            github: null
+        },
+        date: "Dec 2025",
+        team: "Personal Project",
+        overview: "Notitia is my homelab: self-hosted infrastructure running on a UGREEN DXP2800 NAS. Services run as Docker containers, including self-hosted Git (Gitea/OneDev), Nginx Proxy Manager, AdGuard Home, and Vikunja. Private access goes through Tailscale, while public-facing services like Sonus are exposed through a Cloudflare Tunnel.",
+        // TODO: review problem framing
+        problem: "Running my own services means handling everything a hosted platform normally hides: where the services run, how I reach them remotely, and how anything public gets exposed to the internet without opening up the home network.",
+        solution: "I run everything as Docker containers on a UGREEN DXP2800 NAS. Tailscale provides private remote access, Nginx Proxy Manager handles reverse proxying, and Cloudflare Tunnel publishes the services that need to be public, such as Sonus.",
+        features: [
+            {
+                title: "Private Access over Tailscale",
+                description: "The NAS and its services are reached remotely through Tailscale."
+            },
+            {
+                title: "Containerized Services",
+                description: "Self-hosted Git (Gitea/OneDev), Vikunja for task management, and other tools all run as Docker containers on the NAS."
+            },
+            {
+                title: "Reverse Proxy & DNS Filtering",
+                description: "Nginx Proxy Manager routes traffic to services, and AdGuard Home provides DNS-level ad and tracker blocking."
+            },
+            {
+                title: "Public Services via Cloudflare Tunnel",
+                description: "Public-facing services like Sonus are exposed through Cloudflare Tunnel rather than through open inbound ports."
+            }
+        ],
+        technicalHighlights: [
+            "UGREEN DXP2800 NAS as the host",
+            "Docker containers for every service",
+            "Tailscale for private remote access",
+            "Nginx Proxy Manager for reverse proxying",
+            "AdGuard Home for DNS filtering",
+            "Cloudflare Tunnel for publishing public services like Sonus"
+        ],
+        // TODO: confirm Gitea vs OneDev (or both)
+        technologies: ["Docker", "Tailscale", "Cloudflare Tunnel", "Nginx Proxy Manager", "AdGuard Home", "Gitea", "OneDev", "Vikunja"],
+        // TODO: add outcomes and lessonsLearned
+    },
+    geflipdesk: {
+        id: "geflipdesk",
+        categories: ["Software"],
+        title: "GE Flip Desk",
+        subtitle: "Old School RuneScape Grand Exchange Flipping Analyzer",
+        description: "A web app that ranks Old School RuneScape Grand Exchange items by after-tax margin, ROI, volume, and buy limits using live prices from the OSRS Wiki API.",
+        icon: FaCoins,
+        gradient: "from-yellow-600 via-amber-700 to-stone-700",
+        tags: ["JavaScript", "HTML", "REST APIs", "Data Visualization", "GitHub Pages"],
+        techIcons: [SiHtml5, SiJavascript],
+        links: {
+            live: "https://evansminotwood.github.io/grand-exchange-flip-desk/",
+            github: "https://github.com/evansminotwood/grand-exchange-flip-desk"
+        },
+        date: "Oct 2026",
+        // TODO: add team (e.g. "Personal Project")
+        overview: "GE Flip Desk is an Old School RuneScape Grand Exchange flipping analyzer. It pulls live data from the OSRS Wiki real-time prices API, ranks items by after-tax margin, ROI, volume, and buy limits, and charts each item's buy/sell history with a plain-language analysis. A watchlist and flip log let you track the items you care about and record the flips you make.",
+        problem: "Finding a good flip on the Grand Exchange means weighing several numbers at once: the buy/sell spread, the Grand Exchange tax, how often an item trades, and how many you can buy before hitting the limit. Comparing those by hand across thousands of items isn't practical.",
+        solution: "I built a single-page web app that fetches live prices from the OSRS Wiki API, applies the Grand Exchange tax to compute real margins, and ranks items on the board by the metric you choose. Selecting an item shows its price history and a plain-language analysis of the flip.",
+        features: [
+            {
+                title: "Ranked Flip Board",
+                description: "Sort items by best profit per buy limit, highest ROI, biggest margin, or most traded, plus a top-10 view by profit per 4-hour limit window."
+            },
+            {
+                title: "After-Tax Margins",
+                description: "Margins account for the 2% Grand Exchange tax, including its 5M cap, its low-price floor, and tax-exempt items."
+            },
+            {
+                title: "Price History Charts",
+                description: "Each item's buy/sell history is charted over roughly 30 hours, 2 weeks, or 3 months, alongside a plain-language analysis."
+            },
+            {
+                title: "Watchlist & Flip Log",
+                description: "Watch items to track them in a separate view and log the flips you make. Both are saved in the browser."
+            }
+        ],
+        technicalHighlights: [
+            "Single self-contained HTML file with no build step or external JavaScript libraries",
+            "Live data from the OSRS Wiki real-time prices API (item mapping, latest, 5-minute, 1-hour, and timeseries endpoints)",
+            "After-tax profit model with the 2% rate, 5M cap, low-price floor, and exemption list",
+            "Hand-built SVG price charts with three time ranges",
+            "Watchlist and flip log persisted with localStorage",
+            "Hosted on GitHub Pages"
+        ],
+        technologies: ["JavaScript", "HTML", "CSS", "SVG", "OSRS Wiki Prices API", "localStorage", "GitHub Pages"],
+        // TODO: add outcomes and lessonsLearned
     }
 };
 
+export const projectCategories = ["Software", "ML & Research", "Hardware"] as const;
+
 export const projects = [
-    projectsData.aureus,
     projectsData.sonus,
+    projectsData.aureus,
     projectsData.compiler,
-    projectsData.advent2025,
+    projectsData.musicga,
+    projectsData.pcbcard,
     projectsData.shopcomp,
+    projectsData.notitia,
+    projectsData.geflipdesk,
+    projectsData.advent2025,
     projectsData.deadheadsShortcut,
     projectsData.mtwash
 ];

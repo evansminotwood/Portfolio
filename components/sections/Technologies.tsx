@@ -2,7 +2,8 @@
 
 import { Reveal } from "@/components/ui/reveal";
 import type { IconType } from "react-icons";
-import { SiReact, SiPython, SiJavascript, SiAwslambda, SiNextdotjs, SiNodedotjs, SiMysql, SiTailwindcss, SiTypescript, SiHtml5, SiCss3, SiGit, SiC, SiGo, SiRust, SiNumpy, SiScikitlearn, SiPandas, SiPostgresql, SiDocker, SiFastapi, SiPytorch } from "react-icons/si";
+import { SiReact, SiPython, SiJavascript, SiAwslambda, SiNextdotjs, SiNodedotjs, SiMysql, SiTailwindcss, SiTypescript, SiHtml5, SiCss3, SiGit, SiC, SiGo, SiRust, SiNumpy, SiScikitlearn, SiPandas, SiPostgresql, SiDocker, SiFastapi, SiPytorch, SiR, SiEspressif, SiHuggingface, SiGithubactions, SiTailscale, SiCloudflare, SiLatex } from "react-icons/si";
+import { FaLayerGroup } from "react-icons/fa";
 
 type Tech = { icon: IconType; name: string; color: string };
 
@@ -14,6 +15,8 @@ const technologies: Tech[] = [
     { icon: SiRust, name: "Rust", color: "text-[#F74C00]" },
     { icon: SiJavascript, name: "JavaScript", color: "text-[#F7DF1E]" },
     { icon: SiTypescript, name: "TypeScript", color: "text-[#3178C6]" },
+    { icon: SiR, name: "R", color: "text-[#276DC3]" },
+    { icon: SiEspressif, name: "Embedded C / ESP32", color: "text-[#E7352C]" },
     // Frontend
     { icon: SiReact, name: "React", color: "text-[#61DAFB]" },
     { icon: SiNextdotjs, name: "Next.js", color: "text-foreground" },
@@ -28,14 +31,21 @@ const technologies: Tech[] = [
     { icon: SiNumpy, name: "NumPy", color: "text-[#4DABCF]" },
     { icon: SiScikitlearn, name: "scikit-learn", color: "text-[#F7931E]" },
     { icon: SiPandas, name: "Pandas", color: "text-[#E70488]" },
+    { icon: SiHuggingface, name: "Hugging Face", color: "text-[#FFD21E]" },
+    // react-icons has no Gradio brand icon
+    { icon: FaLayerGroup, name: "Gradio", color: "text-[#F97316]" },
     // Databases
     { icon: SiPostgresql, name: "PostgreSQL", color: "text-[#4169E1]" },
     { icon: SiMysql, name: "MySQL", color: "text-[#4479A1]" },
     // Cloud / DevOps
     { icon: SiAwslambda, name: "AWS Lambda", color: "text-[#FF9900]" },
     { icon: SiDocker, name: "Docker", color: "text-[#2496ED]" },
+    { icon: SiGithubactions, name: "GitHub Actions", color: "text-[#2088FF]" },
+    { icon: SiCloudflare, name: "Cloudflare", color: "text-[#F38020]" },
+    { icon: SiTailscale, name: "Tailscale", color: "text-foreground" },
     // Tools
     { icon: SiGit, name: "Git", color: "text-[#F05032]" },
+    { icon: SiLatex, name: "LaTeX", color: "text-[#008080]" },
 ];
 
 const rowA = technologies.slice(0, Math.ceil(technologies.length / 2));
@@ -84,8 +94,8 @@ export default function Technologies() {
                 </Reveal>
 
                 <Reveal delay={100} className="space-y-4">
-                    <MarqueeRow items={rowA} duration={40} />
-                    <MarqueeRow items={rowB} duration={48} reverse />
+                    <MarqueeRow items={rowA} duration={55} />
+                    <MarqueeRow items={rowB} duration={65} reverse />
                 </Reveal>
             </div>
         </section>

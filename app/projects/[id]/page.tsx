@@ -20,6 +20,13 @@ export async function generateMetadata({
     return {
         title: `${project.title} - Evans Minot Wood`,
         description: project.description,
+        openGraph: {
+            title: `${project.title} - Evans Minot Wood`,
+            description: project.description,
+            url: `/projects/${project.id}/`,
+            type: "article",
+            images: [{ url: `/og/${project.id}.png`, width: 1200, height: 630 }],
+        },
     };
 }
 

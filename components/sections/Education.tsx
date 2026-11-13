@@ -11,7 +11,7 @@ export default function Education() {
             name: "Worcester Polytechnic Institute",
             location: "Worcester, Massachusetts",
             graduation: "May 2027",
-            gpa: "3.85",
+            gpa: "3.84",
             gradient: "from-red-700 via-red-600 to-slate-400",
         },
         degrees: [
@@ -209,7 +209,7 @@ export default function Education() {
                                     <strong className="text-foreground">The Journey:</strong> As a child, I dreamt of building a computer that could think and reason for itself. That dream sparked a lifelong passion for artificial intelligence and problem-solving that continues to drive my academic pursuits today.
                                 </p>
                                 <p className="text-muted-foreground">
-                                    <strong className="text-foreground">Academic Focus:</strong> Pursuing dual degrees to bridge the gap between software development and data-driven decision making, with hands-on experience in full-stack development, systems programming, and machine learning applications.
+                                    <strong className="text-foreground">Academic Focus:</strong> Pursuing a B.S. with majors in Computer Science and Data Science to bridge the gap between software development and data-driven decision making, with hands-on experience in full-stack development, systems programming, and machine learning applications.
                                 </p>
                             </div>
                         </div>

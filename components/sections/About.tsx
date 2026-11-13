@@ -52,7 +52,7 @@ export default function About() {
     };
 
     const stats = [
-        { value: 3.85, decimals: 2, suffix: "", label: "GPA" },
+        { value: 3.84, decimals: 2, suffix: "", label: "GPA" },
         { value: 6, decimals: 0, suffix: "x", label: "Dean's List" },
         { value: projects.length, decimals: 0, suffix: "", label: "Projects" },
         { value: 2, decimals: 0, suffix: "", label: "Majors" },
