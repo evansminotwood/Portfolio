@@ -66,7 +66,7 @@ export default function About() {
                 <div className="absolute -bottom-32 -right-32 h-[24rem] w-[24rem] rounded-full bg-purple-600/10 blur-3xl animate-[float-blob_18s_ease-in-out_infinite_reverse]" />
             </div>
 
-            <Reveal className="max-w-5xl w-full py-10">
+            <Reveal className="max-w-5xl w-full py-6">
             <Card className="w-full overflow-hidden ring-1 ring-white/10">
                 <CardContent className="p-0">
                     <div className="flex flex-col md:flex-row">
@@ -92,8 +92,8 @@ export default function About() {
                         </div>
 
                         {/* Right: Content Section */}
-                        <div className="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
-                            <div className="mb-8">
+                        <div className="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
+                            <div className="mb-6">
                                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-2">
                                     {aboutData.name}
                                 </h2>
@@ -101,12 +101,12 @@ export default function About() {
                             </div>
 
                             {/* Info Items */}
-                            <div className="space-y-4 mb-8">
+                            <div className="space-y-3 mb-6">
                                 {aboutData.items.map((item) => {
                                     const Icon = item.icon;
                                     return (
                                         <div key={item.id} className="flex items-start gap-4">
-                                            <div className={`mt-1 p-3 ${item.iconBg} rounded-lg`}>
+                                            <div className={`mt-1 p-2.5 ${item.iconBg} rounded-lg`}>
                                                 <Icon className={`${item.iconColor} text-xl`} />
                                             </div>
                                             <div>
@@ -119,8 +119,8 @@ export default function About() {
                             </div>
 
                             {/* Bio */}
-                            <div className="border-l-4 border-blue-600 pl-6 py-2 mb-8">
-                                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                            <div className="border-l-4 border-blue-600 pl-6 py-2 mb-6">
+                                <p className="text-base text-muted-foreground leading-relaxed">
                                     {aboutData.bio}
                                 </p>
                             </div>
